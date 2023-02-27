@@ -50,86 +50,88 @@
                         <button class="btn btn-light" type="button" onclick="deleteItem()" style="color:#fff; background-color: #ccc;">선택 삭제</button>
                         <div id="result2"></div>
                     </div>
-                    <div id="layerPop" class="p-5" style="display:none; width: 75%; height: 800px; position: absolute; z-index: 1; overflow: scroll;">
+                    <div id="layerPop" class="p-5" style="display:none; width: 75%; height: 800px; position: absolute; z-index: 1; overflow: hidden;">
                         <!-- <h2 class="mb-5">품목 관리</h2> -->
                         <!-- <h3 class="mb-4">품목 선택</h3> -->
                         <form method="get" action="/admin/list/regist">
-<!--                            <div class="input-group mb-3 col-12 float-start">-->
-<!--                                <select id="searchCondition" name="searchCondition" class="form-control col-2" style="max-width: max-content;">-->
-<!--                                    <option value="itemName">상품명</option>-->
-<!--                                    <option value="category">카테고리</option>-->
-<!--                                    <option value="make">제조사</option>-->
-<!--                                </select>-->
+                            <!--                            <div class="input-group mb-3 col-12 float-start">-->
+                            <!--                                <select id="searchCondition" name="searchCondition" class="form-control col-2" style="max-width: max-content;">-->
+                            <!--                                    <option value="itemName">상품명</option>-->
+                            <!--                                    <option value="category">카테고리</option>-->
+                            <!--                                    <option value="make">제조사</option>-->
+                            <!--                                </select>-->
 
-<!--                                &lt;!&ndash; <button class="btn btn-light px-3" type="button" disabled></button> &ndash;&gt;-->
-<!--                                &lt;!&ndash; <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">-->
-<!--                                  <option value="date">상품명</option>-->
-<!--                                </select> &ndash;&gt;-->
-<!--                                <input class="form-control me-2 col-3 searchValue" id="searchValue" name="searchValue" type="text" placeholder="검색어를 입력해주세요.">-->
-<!--                                <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>-->
+                            <!--                                &lt;!&ndash; <button class="btn btn-light px-3" type="button" disabled></button> &ndash;&gt;-->
+                            <!--                                &lt;!&ndash; <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">-->
+                            <!--                                  <option value="date">상품명</option>-->
+                            <!--                                </select> &ndash;&gt;-->
+                            <!--                                <input class="form-control me-2 col-3 searchValue" id="searchValue" name="searchValue" type="text" placeholder="검색어를 입력해주세요.">-->
+                            <!--                                <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>-->
 
-<!--                                <div class="form-check mx-4 d-flex flex-wrap align-content-center">-->
-<!--                                    <input type="checkbox" class="form-check-input" id="check" name="soldout" style="margin-top: 14px">-->
-<!--                                    <label class="form-check-label" for="check">품절상품만</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <!--                                <div class="form-check mx-4 d-flex flex-wrap align-content-center">-->
+                            <!--                                    <input type="checkbox" class="form-check-input" id="check" name="soldout" style="margin-top: 14px">-->
+                            <!--                                    <label class="form-check-label" for="check">품절상품만</label>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                         </form>
-                        <div class="mt-3 d-flex justify-content-end">
+                        <div class="my-4 d-flex justify-content-end">
                             <input type="hidden" name="itemNoList" id="result">
                             <button class="btn btn-warning me-1" type="button" style="color: #fff;" onclick='getCheckboxValue()'>품목 선택</button>
                         </div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <div class="form-check pb-3">
-                                        <input type="checkbox" class="form-check-input" id="cbx_chkAll1" required/>
-                                    </div>
-                                </th>
-                                <th>상품코드</th>
-                                <th>썸네일</th>
-                                <th>상품명</th>
-                                <th>카테고리</th>
-                                <th>규격</th>
-                                <th>제조사(원산지)</th>
-                                <th>매입단가</th>
-                                <th>매출단가</th>
-                                <th>재고량</th>
-                                <th>품절여부</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="receiveItem : ${ receiveOfficeItemList }">
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="chk1" th:value="${ receiveItem.itemNo }">
-                                        <label class="form-check-label" for="check"></label>
-                                    </div>
-                                </td>
-                                <td th:text="${ receiveItem.itemNo }">100000</td>
-                                <td>
-                                    <div class="img-info">
-                                        <div class="img-info__img">
-                                            <img th:src="'/itemImage/' + ${ receiveItem.itemFile.fileName }" alt="">
+                        <div style="width:100%; height: 600px; overflow:auto;">
+                            <table class="table" width="100%">
+                                <thead>
+                                <tr style="top: 0; position:sticky; background: #fff; z-index: 999;">
+                                    <th>
+                                        <div class="form-check pb-3">
+                                            <input type="checkbox" class="form-check-input" id="cbx_chkAll1" required/>
                                         </div>
-                                    </div>
-                                </td>
-                                <td th:text="${ receiveItem.itemName }">닭다리</td>
-                                <td th:text="${ receiveItem.categoryName }">식재료</td>
-                                <td th:text="${ receiveItem.itemStandard }">1kg</td>
-                                <td th:text="${ receiveItem.itemMake }">하림(국내산)</td>
-                                <td th:text="|${ #numbers.formatInteger(receiveItem.itemPurchase, 0, 'COMMA') }원|">5,500</td>
-                                <td th:text="|${ #numbers.formatInteger(receiveItem.itemSales, 0, 'COMMA') }원|">6,000</td>
-                                <td th:text="${ #numbers.formatInteger(receiveItem.itemAmount, 0, 'COMMA') }">100</td>
-                                <td th:if="${ receiveItem.itemSoldoutYn eq 'Y' }" >
-                                    <span class="active-circle bg-danger"></span><span th:text="${ '품절' }"></span>
-                                </td>
-                                <td th:if="${ receiveItem.itemSoldoutYn eq 'N' }" >
-                                    <span class="active-circle bg-success"></span><span th:text="${ '보유' }"></span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    </th>
+                                    <th>상품코드</th>
+                                    <th>썸네일</th>
+                                    <th>상품명</th>
+                                    <th>카테고리</th>
+                                    <th>규격</th>
+                                    <th>제조사(원산지)</th>
+                                    <th>매입단가</th>
+                                    <th>매출단가</th>
+                                    <th>재고량</th>
+                                    <th>품절여부</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="receiveItem : ${ receiveOfficeItemList }">
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="chk1" th:value="${ receiveItem.itemNo }">
+                                            <label class="form-check-label" for="check"></label>
+                                        </div>
+                                    </td>
+                                    <td th:text="${ receiveItem.itemNo }">100000</td>
+                                    <td>
+                                        <div class="img-info">
+                                            <div class="img-info__img">
+                                                <img th:src="'/itemImage/' + ${ receiveItem.itemFile.fileName }" alt="">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td th:text="${ receiveItem.itemName }">닭다리</td>
+                                    <td th:text="${ receiveItem.categoryName }">식재료</td>
+                                    <td th:text="${ receiveItem.itemStandard }">1kg</td>
+                                    <td th:text="${ receiveItem.itemMake }">하림(국내산)</td>
+                                    <td th:text="|${ #numbers.formatInteger(receiveItem.itemPurchase, 0, 'COMMA') }원|">5,500</td>
+                                    <td th:text="|${ #numbers.formatInteger(receiveItem.itemSales, 0, 'COMMA') }원|">6,000</td>
+                                    <td th:text="${ #numbers.formatInteger(receiveItem.itemAmount, 0, 'COMMA') }">100</td>
+                                    <td th:if="${ receiveItem.itemSoldoutYn eq 'Y' }" >
+                                        <span class="active-circle bg-danger"></span><span th:text="${ '품절' }"></span>
+                                    </td>
+                                    <td th:if="${ receiveItem.itemSoldoutYn eq 'N' }" >
+                                        <span class="active-circle bg-success"></span><span th:text="${ '보유' }"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
 
 
@@ -435,6 +437,7 @@
                 $("input:checkbox[name='chk2']:checked").each(function(k, kVal) {
                     let a = kVal.parentElement.parentElement.parentElement;
                     $(a).remove();
+                    $("input:checkbox[id='cbx_chkAll2']").prop("checked", false);
                 });
                 alert('선택한 항목이 삭제되었습니다.');
             }
@@ -550,6 +553,13 @@
         // row 삭제
         let tr = check.parentNode.parentNode;
         tr.parentNode.removeChild(tr);
+
+        // th checkbox 체크 해제
+        var total = $("input[name=chk2]").length;
+        var checked = $("input[name=chk2]:checked").length;
+
+        if(total != checked) $("#cbx_chkAll2").prop("checked", false);
+        if(total == 0) $("#cbx_chkAll2").prop("checked", false);
 
         // row 길이
         let rowLength = document.getElementById('receiveTable').tBodies[0].rows.length;
