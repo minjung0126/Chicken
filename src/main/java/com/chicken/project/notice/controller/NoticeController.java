@@ -142,7 +142,7 @@ public class NoticeController {
     public String noticeInsert(@ModelAttribute NoticeDTO notice,
                                @RequestParam(value="file", required=false) MultipartFile file,
                                RedirectAttributes rttr
-                               ) throws Exception{
+    ) throws Exception{
 
         NoticeFileDTO noticeFile = new NoticeFileDTO();
 
@@ -190,7 +190,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 등록 성공!");
 
-        return "redirect:notice/admin/list";
+        return "redirect:/notice/admin/list";
     }
 
     /* 관리자 공지사항 상세페이지 */
@@ -239,7 +239,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 삭제 성공!");
 
-        return "notice/admin/list";
+        return "redirect:/notice/admin/list";
     }
 
     /* 관리자 공지사항 수정 페이지 이동 */
@@ -310,13 +310,13 @@ public class NoticeController {
 
                 } else {
 
-                        noticeFile.setNoticeNo(noticeNo);
-                        noticeFile.setOriginName(originFileName);
-                        noticeFile.setFileName(changeName);
-                        noticeFile.setSavedPath(savedPath);
+                    noticeFile.setNoticeNo(noticeNo);
+                    noticeFile.setOriginName(originFileName);
+                    noticeFile.setFileName(changeName);
+                    noticeFile.setSavedPath(savedPath);
 
-                        noticeService.updateNoticeFile(noticeFile);
-                    }
+                    noticeService.updateNoticeFile(noticeFile);
+                }
 
             }
 
@@ -331,7 +331,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 수정 성공!");
 
-        return "notice/admin/list";
+        return "redirect:/notice/admin/list";
 
-        }
+    }
 }
