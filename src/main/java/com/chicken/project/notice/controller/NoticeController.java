@@ -190,7 +190,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 등록 성공!");
 
-        return "notice/admin/list";
+        return "redirect:notice/admin/list";
     }
 
     /* 관리자 공지사항 상세페이지 */
