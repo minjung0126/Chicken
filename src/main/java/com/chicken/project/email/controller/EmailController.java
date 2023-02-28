@@ -32,9 +32,10 @@ public class EmailController {
     }
 
     @GetMapping("/ckEmail")
-    public String ckEmail(){
+    public ModelAndView ckEmail(ModelAndView mv){
 
-        return "/member/ckEmail";
+        mv.setViewName("member/ckEmail");
+        return mv;
     };
 
     @PostMapping("/ckEmail")
@@ -57,7 +58,7 @@ public class EmailController {
         }
 
         log.info( "result : " + result);
-        mv.setViewName("/member/updatePwd");
+        mv.setViewName("member/updatePwd");
         return mv;
     }
 
