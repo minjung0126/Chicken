@@ -1,6 +1,6 @@
 #port 설정
 server:
-  port: 8085
+  port: 8080
 
 #datasource
 spring:
