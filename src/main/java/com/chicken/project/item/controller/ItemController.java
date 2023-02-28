@@ -130,15 +130,13 @@ public class ItemController {
     @PostMapping("/admin/update")
     public String itemUpdate(@ModelAttribute ItemInfoDTO item, @RequestParam(value="itemNo", required = false) int itemNo, @RequestParam(value="file", required = false) MultipartFile file, RedirectAttributes rttr) throws Exception{
 
-
         log.info("[itemController] ItemInfoDTO : " + item);
         log.info("아이템넘버 : " + itemNo);
         log.info("[itemController] file : " + file);
 
-        String root = ResourceUtils.getURL("src/main/resources").getPath();
+        String root = ResourceUtils.getURL("upload").getPath();
 
-        String filePath = root + "static/itemImage";
-
+        String filePath = root + "itemImage";
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -153,45 +151,46 @@ public class ItemController {
 
         int result = itemService.updateItem(item);
 
+        item.getItemFile().setItemNo(itemNo);
+
         if(file.getSize() > 0) {
+
+            ItemInfoDTO itemInfo = itemService.selectOneItem(String.valueOf(itemNo));
+
+            File fileDel = new File(filePath + File.separator + itemInfo.getItemFile().getFileName());
+
+            if(fileDel.exists()){
+
+                fileDel.delete();
+            }
+
+            itemService.deleteItemFile2(itemNo);
+
             originFileName = file.getOriginalFilename();
             ext = originFileName.substring(originFileName.lastIndexOf("."));
             changeName = UUID.randomUUID().toString().replace("-", "");
 
-
             ItemFileDTO itemFile = new ItemFileDTO();
 
+            itemFile.setItemNo(itemNo);
+            itemFile.setOriginName(originFileName);
+            itemFile.setFileName(changeName + ext);
 
-            if (result > 0) {
+            itemService.insertItemFile(itemFile);
 
-                int result2 = itemService.deleteItemFile2(itemNo);
-
-                if (result2 > 0) {
-
-                    itemFile.setItemNo(itemNo);
-                    itemFile.setOriginName(originFileName);
-                    itemFile.setFileName(changeName + ext);
-
-                    itemService.insertItemFile(itemFile);
-                } else {
-
-                    itemFile.setItemNo(itemNo);
-                    itemFile.setOriginName(originFileName);
-                    itemFile.setFileName(changeName + ext);
-
-                    itemService.insertItemFile(itemFile);
-                }
-
-            }
+            itemService.updateItem(item);
 
 
             try {
-                file.transferTo(new File(filePath + "\\" + changeName + ext));
+                file.transferTo(new File(filePath + mkdir.separator + changeName + ext));
             } catch (IOException e) {
 
                 e.printStackTrace();
-                new File(filePath + "\\" + changeName + ext).delete();
+                new File(filePath + mkdir.separator + changeName + ext).delete();
             }
+        } else{
+
+            itemService.updateItem(item);
         }
 
         rttr.addFlashAttribute("message", "품목 수정 성공!");
@@ -210,9 +209,9 @@ public class ItemController {
         log.info("[itemController] ItemInfoDTO : " + item);
         log.info("[itemController] file : " + file);
 
-        String root = ResourceUtils.getURL("src/main/resources").getPath();
+        String root = ResourceUtils.getURL("upload").getPath();
 
-        String filePath = root + "static/itemImage";
+        String filePath = root + "itemImage";
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -230,7 +229,6 @@ public class ItemController {
             ext = originFileName.substring(originFileName.lastIndexOf("."));
             changeName = UUID.randomUUID().toString().replace("-",  "");
 
-
             itemFile.setOriginName(originFileName);
             itemFile.setFileName(changeName + ext);
 
@@ -245,15 +243,15 @@ public class ItemController {
             }
 
             try {
-                file.transferTo(new File(filePath + "\\" + changeName + ext));
+                file.transferTo(new File(filePath + mkdir.separator + changeName + ext));
             } catch (IOException e) {
 
                 e.printStackTrace();
-                new File(filePath + "\\" + changeName + ext).delete();
+                new File(filePath + mkdir.separator + changeName + ext).delete();
             }
+        } else {
+            itemService.insertItem(item);
         }
-
-
 
         rttr.addFlashAttribute("message", "상품 등록 성공");
 
@@ -269,8 +267,27 @@ public class ItemController {
         System.out.println(itemNo);
 
         for(int i = 0; i < itemNo.length; i++){
-            itemService.deleteItemFile(itemNo[i]); // cascade로 바꾸고 지우기
-            itemService.deleteItem(itemNo[i]);
+
+            ItemInfoDTO itemInfo = itemService.selectOneItem(itemNo[i]);
+
+            int result = itemService.deleteItem(itemNo[i]);
+
+            if(result > 0){
+
+                String rootItem = ResourceUtils.getURL("upload").getPath();
+
+                String itemFilePath = rootItem + "itemImage";
+
+                File mkdirItem = new File(itemFilePath + File.separator + itemInfo.getItemFile().getFileName());
+
+                if(mkdirItem.exists()){
+
+                    mkdirItem.delete();
+                }
+                
+                itemService.deleteItemFile(itemNo[i]); // cascade로 바꾸고 지우기
+            }
+
         }
 
         rttr.addFlashAttribute("message", "상품 삭제 성공");
