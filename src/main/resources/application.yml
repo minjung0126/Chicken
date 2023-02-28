@@ -1,6 +1,11 @@
 #port 설정
 server:
   port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 #datasource
 spring:
@@ -18,8 +23,8 @@ spring:
     cache: false
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 50MB
+      max-file-size: 120MB
+      max-request-size: 120MB
       enabled: true
   thymeleaf:
     prefix: classpath:/templates/
@@ -33,6 +38,19 @@ spring:
       mail.smtp.ssl.trust: smtp.naver.com
     username: ybusiness39
     password: K91KVSCJ7MBC
+
+# 파일, 이미지 업로드시 저장될 폴더 설정
+web:
+  resources:
+    static-locations: classpath:/upload/
+    image:
+      image-dir: src/main/resources/
+    devtools:
+      livereload:
+        enabled: true
+      remote:
+        restart:
+          enabled: true
 
 # mybatis config
 mybatis:
