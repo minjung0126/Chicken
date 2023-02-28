@@ -70,7 +70,7 @@ public class StoreItemController {
 
         mv.addObject("selectCriteria", selectCriteria);
         mv.addObject("itemList", itemList);
-        mv.setViewName("/storeItem/storeItem_list");
+        mv.setViewName("storeItem/storeItem_list");
         return mv;
     }
 
