@@ -149,7 +149,7 @@ public class ItemController {
         String ext = "";
         String changeName = "";
 
-        int result = itemService.updateItem(item);
+//        int result = itemService.updateItem(item);
 
         item.getItemFile().setItemNo(itemNo);
 
