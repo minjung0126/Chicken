@@ -36,7 +36,7 @@ public class MemberController {
     @GetMapping("/failure")
     public String loginFail(){
 
-        return "/member/failure";
+        return "member/failure";
     };
 
 
