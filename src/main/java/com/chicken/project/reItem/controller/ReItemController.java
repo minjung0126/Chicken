@@ -77,7 +77,7 @@ public class ReItemController {
         int result = reItemService.insertReItem(insertItem, storeImpl.getStoreName());
 
         if(result > 0) {
-            mv.setViewName("redirect:/reItem/user/insertReItem");
+            mv.setViewName("reItem/user/insertReItem");
         }
 
         return mv;
@@ -121,7 +121,7 @@ public class ReItemController {
 
         mv.addObject("reList",storeReList);
         mv.addObject("selectCriteria", selectCriteria);
-        mv.setViewName("/reItem/user/storeReList");
+        mv.setViewName("reItem/user/storeReList");
 
         return mv;
     }
@@ -265,7 +265,7 @@ public class ReItemController {
             ReItemDTO update = reItemService.selectUpReItem(String.valueOf(rNo));
             mv.addObject("updateItem", update);
             mv.addObject("rNo",rNo);
-            mv.setViewName("redirect:/reItem/user/reviseReItem");
+            mv.setViewName("reItem/user/reviseReItem");
         }
 
         return mv;
@@ -281,7 +281,7 @@ public class ReItemController {
         int result = reItemService.deleteList(rNo);
 
         if (result > 0){
-            mv.setViewName("redirect:/reItem/user/storeReList");
+            mv.setViewName("reItem/user/storeReList");
         }
 
         return mv;
@@ -316,7 +316,7 @@ public class ReItemController {
 
         mv.addObject("returnList",storeReturnList);
         mv.addObject("selectCriteria", selectCriteria);
-        mv.setViewName("/reItem/admin/adminReList");
+        mv.setViewName("reItem/admin/adminReList");
 
         return mv;
 
@@ -337,7 +337,7 @@ public class ReItemController {
         int result = reItemService.updateItem(maps);
 
         if (result > 0) {
-            mv.setViewName("redirect:/reItem/admin/adminReList");
+            mv.setViewName("reItem/admin/adminReList");
         }
 
         return mv;
@@ -362,7 +362,7 @@ public class ReItemController {
         mv.addObject("reItems", reItems);
 
         rttr.addFlashAttribute("returnProgress", returnProgress);
-        mv.setViewName("/reItem/admin/adminReItem");
+        mv.setViewName("reItem/admin/adminReItem");
 
         return mv;
     }
@@ -378,7 +378,7 @@ public class ReItemController {
 
         int result = reItemService.updateComplete(returnItems, adminId, rNo, storeName);
 
-        mv.setViewName("redirect:/reItem/admin/adminReList");
+        mv.setViewName("reItem/admin/adminReList");
 
         return mv;
     }
