@@ -284,7 +284,7 @@ public class ItemController {
 
                     mkdirItem.delete();
                 }
-                
+
                 itemService.deleteItemFile(itemNo[i]); // cascade로 바꾸고 지우기
             }
 
