@@ -41,7 +41,7 @@ public class CounselController {
         List<CounselDTO> counselList = counselService.selectCounselByStoreName(storeName);
 
         mv.addObject("counselList", counselList);
-        mv.setViewName("/counsel/user/userCounselList");
+        mv.setViewName("counsel/user/userCounselList");
 
         return mv;
     }
@@ -53,7 +53,7 @@ public class CounselController {
         List<CounselDTO> counselList = counselService.selectCounsel();
 
         mv.addObject("counselList", counselList);
-        mv.setViewName("/counsel/admin/adminCounselList");
+        mv.setViewName("counsel/admin/adminCounselList");
 
         return mv;
     }
@@ -62,7 +62,7 @@ public class CounselController {
     @GetMapping("/user/insert")
     public String counselInsertPage(){
 
-        return "/counsel/user/userCounselInsert";
+        return "counsel/user/userCounselInsert";
     }
 
     /* 유저 1:1 문의 등록 */
@@ -90,7 +90,7 @@ public class CounselController {
 
         mv.addObject("counsel", counsel);
         mv.addObject("counselApply", counselApply);
-        mv.setViewName("/counsel/admin/adminCounselDetail");
+        mv.setViewName("counsel/admin/adminCounselDetail");
 
         return mv;
     }
@@ -108,7 +108,7 @@ public class CounselController {
         log.info("[CounselController] counsel : " + counsel);
 
         mv.addObject("counsel", counsel);
-        mv.setViewName("/counsel/admin/adminCounselInsert");
+        mv.setViewName("counsel/admin/adminCounselInsert");
 
         return mv;
     }
@@ -144,7 +144,7 @@ public class CounselController {
         mv.addObject("counsel", counsel);
         mv.addObject("counselApply", counselApply);
 
-        mv.setViewName("/counsel/user/userCounselDetail");
+        mv.setViewName("counsel/user/userCounselDetail");
 
         return mv;
 

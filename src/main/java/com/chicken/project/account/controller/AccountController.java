@@ -79,7 +79,7 @@ public class AccountController {
 
         mv.addObject("accountApplyList", accountApplyList);
         mv.addObject("selectCriteria", selectCriteria);
-        mv.setViewName("/account/admin/adminAccountList");
+        mv.setViewName("account/admin/adminAccountList");
 
         return mv;
     }
@@ -99,7 +99,7 @@ public class AccountController {
         mv.addObject("accountList", accountList);
         mv.addObject("balance", balance);
 
-        mv.setViewName("/account/user/userAccountList");
+        mv.setViewName("account/user/userAccountList");
 
         return mv;
     }
@@ -169,7 +169,7 @@ public class AccountController {
         mv.addObject("storeDeposit", storeDeposit);
         mv.addObject("storeBreakdown", storeBreakdown);
 
-        mv.setViewName("/account/user/userBank");
+        mv.setViewName("account/user/userBank");
 
         return mv;
     }
@@ -181,7 +181,7 @@ public class AccountController {
         List<BalanceDTO> balanceSelect = accountService.balanceSelect();
 
         mv.addObject("balanceSelect", balanceSelect);
-        mv.setViewName("/account/admin/adminBalanceSelect");
+        mv.setViewName("account/admin/adminBalanceSelect");
 
         return mv;
     }

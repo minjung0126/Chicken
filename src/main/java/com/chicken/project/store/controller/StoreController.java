@@ -69,7 +69,7 @@ public class StoreController {
 
         rttr.addFlashAttribute("message", "가맹점 정보 삭제 성공!");
 
-        return "store/admin/list";
+        return "redirect:/store/admin/list";
     }
 
     /* 관리자 가맹점 등록 페이지 이동 */
@@ -94,7 +94,7 @@ public class StoreController {
 
         mv.addObject("store", store);
 
-        return "store/admin/list";
+        return "redirect:/store/admin/list";
     }
 
     /* 관리자 가맹점 정보 수정 페이지 이동 */
@@ -124,7 +124,7 @@ public class StoreController {
 
         rttr.addFlashAttribute("message", "가맹점 정보 수정 성공!");
 
-        return "store/admin/list";
+        return "redirect:/store/admin/list";
     }
 
 }

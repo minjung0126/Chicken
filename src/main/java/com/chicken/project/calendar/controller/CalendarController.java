@@ -35,7 +35,7 @@ public class CalendarController {
 
         log.info("[CalendarController] 조회 확인 ========================================");
 
-        return "/calendar/calendar";
+        return "calendar/calendar";
     }
 
     @GetMapping(value = {"calList"}, produces = {"application/json;"})
