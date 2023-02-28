@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +32,12 @@ public class CalendarController {
 
     /* 일정 조회 */
     @GetMapping("/calendar")
-    public String CalMain(){
+    public ModelAndView CalMain(ModelAndView mv){
 
         log.info("[CalendarController] 조회 확인 ========================================");
 
-        return "calendar/calendar";
+        mv.setViewName("calendar/calendar");
+        return mv;
     }
 
     @GetMapping(value = {"calList"}, produces = {"application/json;"})
