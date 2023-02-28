@@ -77,7 +77,7 @@ public class NoticeController {
 
         mv.addObject("noticeList", noticeList);
         mv.addObject("selectCriteria", selectCriteria);
-        mv.setViewName("/notice/admin/adminNoticeList");
+        mv.setViewName("notice/admin/adminNoticeList");
 
         return mv;
     }
@@ -125,7 +125,7 @@ public class NoticeController {
 
         mv.addObject("noticeList", noticeList);
         mv.addObject("selectCriteria", selectCriteria);
-        mv.setViewName("/notice/user/userNoticeList");
+        mv.setViewName("notice/user/userNoticeList");
 
         return mv;
     }
@@ -134,7 +134,7 @@ public class NoticeController {
     @GetMapping("/admin/insert")
     public String noticeInsertPage(){
 
-        return "/notice/admin/adminNoticeInsert";
+        return "notice/admin/adminNoticeInsert";
     }
 
     /* 관리자 공지사항 등록 */
@@ -190,7 +190,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 등록 성공!");
 
-        return "redirect:/notice/admin/list";
+        return "notice/admin/list";
     }
 
     /* 관리자 공지사항 상세페이지 */
@@ -206,7 +206,7 @@ public class NoticeController {
         System.out.println(noticeDetail);
 
         mv.addObject("noticeDetail", noticeDetail);
-        mv.setViewName("/notice/admin/adminNoticeDetail");
+        mv.setViewName("notice/admin/adminNoticeDetail");
 
         return mv;
     }
@@ -224,7 +224,7 @@ public class NoticeController {
         System.out.println(noticeDetail);
 
         mv.addObject("noticeDetail", noticeDetail);
-        mv.setViewName("/notice/user/userNoticeDetail");
+        mv.setViewName("notice/user/userNoticeDetail");
 
         return mv;
     }
@@ -239,7 +239,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 삭제 성공!");
 
-        return "redirect:/notice/admin/list";
+        return "notice/admin/list";
     }
 
     /* 관리자 공지사항 수정 페이지 이동 */
@@ -251,7 +251,7 @@ public class NoticeController {
         NoticeDTO noticeDetail = noticeService.noticeDetailByNo(noticeNo);
 
         mv.addObject("noticeDetail", noticeDetail);
-        mv.setViewName("/notice/admin/adminNoticeUpdate");
+        mv.setViewName("notice/admin/adminNoticeUpdate");
 
         return mv;
     }
@@ -331,7 +331,7 @@ public class NoticeController {
 
         rttr.addFlashAttribute("message", "공지사항 수정 성공!");
 
-        return "redirect:/notice/admin/list";
+        return "notice/admin/list";
 
         }
 }

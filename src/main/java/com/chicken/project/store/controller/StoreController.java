@@ -42,7 +42,7 @@ public class StoreController {
         List<StoreDTO> storeList = storeService.storeList();
 
         mv.addObject("storeList", storeList);
-        mv.setViewName("/store/admin/adminStoreList");
+        mv.setViewName("store/admin/adminStoreList");
 
         return mv;
     }
@@ -54,7 +54,7 @@ public class StoreController {
         List<StoreDTO> storeList = storeService.storeList();
 
         mv.addObject("storeList", storeList);
-        mv.setViewName("/store/user/userStoreList");
+        mv.setViewName("store/user/userStoreList");
 
         return mv;
     }
@@ -69,14 +69,14 @@ public class StoreController {
 
         rttr.addFlashAttribute("message", "가맹점 정보 삭제 성공!");
 
-        return "redirect:/store/admin/list";
+        return "store/admin/list";
     }
 
     /* 관리자 가맹점 등록 페이지 이동 */
     @GetMapping("/admin/insert")
     public String insertStorePage() {
 
-        return "/store/admin/adminStoreInsert";
+        return "store/admin/adminStoreInsert";
     }
 
     /* 관리자 가맹점 등록 */
@@ -94,7 +94,7 @@ public class StoreController {
 
         mv.addObject("store", store);
 
-        return "redirect:/store/admin/list";
+        return "store/admin/list";
     }
 
     /* 관리자 가맹점 정보 수정 페이지 이동 */
@@ -108,7 +108,7 @@ public class StoreController {
         StoreDTO store = storeService.selectStoreByName(storeName);
 
         mv.addObject("store", store);
-        mv.setViewName("/store/admin/adminStoreUpdate");
+        mv.setViewName("store/admin/adminStoreUpdate");
 
         return mv;
     }
@@ -124,7 +124,7 @@ public class StoreController {
 
         rttr.addFlashAttribute("message", "가맹점 정보 수정 성공!");
 
-        return "redirect:/store/admin/list";
+        return "store/admin/list";
     }
 
 }
