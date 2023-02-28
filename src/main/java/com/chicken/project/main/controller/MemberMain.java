@@ -55,7 +55,7 @@ public class MemberMain {
 
                 mv.addObject("noticeList", noticeList);
                 mv.addObject("itemList", itemList);
-                mv.setViewName("/main/admin_main");
+                mv.setViewName("main/admin_main");
             }
         }
 
@@ -74,7 +74,7 @@ public class MemberMain {
                 mv.addObject("storeItemList", storeItemList);
 
                 mv.addObject("noticeList", noticeList);
-                mv.setViewName("/main/user_main");
+                mv.setViewName("main/user_main");
 
             }
         }
