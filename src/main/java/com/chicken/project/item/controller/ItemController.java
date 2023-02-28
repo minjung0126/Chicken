@@ -135,9 +135,9 @@ public class ItemController {
         log.info("아이템넘버 : " + itemNo);
         log.info("[itemController] file : " + file);
 
-        String root = ResourceUtils.getURL("src/main/resources").getPath();
+        String root = ResourceUtils.getURL("upload").getPath();
 
-        String filePath = root + "static/itemImage";
+        String filePath = root + "/itemImage";
 
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
@@ -186,11 +186,11 @@ public class ItemController {
 
 
             try {
-                file.transferTo(new File(filePath + "\\" + changeName + ext));
+                file.transferTo(new File(filePath + File.separator + changeName + ext));
             } catch (IOException e) {
 
                 e.printStackTrace();
-                new File(filePath + "\\" + changeName + ext).delete();
+                new File(filePath + File.separator + changeName + ext).delete();
             }
         }
 
