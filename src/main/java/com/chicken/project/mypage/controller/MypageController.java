@@ -41,7 +41,7 @@ public class MypageController {
     @GetMapping("/member_mypage")
     public String empMypage(){
 
-        return "/mypage/member_mypage";
+        return "mypage/member_mypage";
     }
 
     @PostMapping("/member_mypage")
