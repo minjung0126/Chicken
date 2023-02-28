@@ -136,7 +136,7 @@ public class ItemController {
 
         String root = ResourceUtils.getURL("upload").getPath();
 
-        String filePath = root + "itemImage";
+        String filePath = root + "/itemImage";
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -211,7 +211,7 @@ public class ItemController {
 
         String root = ResourceUtils.getURL("upload").getPath();
 
-        String filePath = root + "itemImage";
+        String filePath = root + "/itemImage";
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -276,7 +276,7 @@ public class ItemController {
 
                 String rootItem = ResourceUtils.getURL("upload").getPath();
 
-                String itemFilePath = rootItem + "itemImage";
+                String itemFilePath = rootItem + "/itemImage";
 
                 File mkdirItem = new File(itemFilePath + File.separator + itemInfo.getItemFile().getFileName());
 
