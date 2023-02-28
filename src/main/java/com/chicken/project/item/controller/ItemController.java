@@ -130,13 +130,15 @@ public class ItemController {
     @PostMapping("/admin/update")
     public String itemUpdate(@ModelAttribute ItemInfoDTO item, @RequestParam(value="itemNo", required = false) int itemNo, @RequestParam(value="file", required = false) MultipartFile file, RedirectAttributes rttr) throws Exception{
 
+
         log.info("[itemController] ItemInfoDTO : " + item);
         log.info("아이템넘버 : " + itemNo);
         log.info("[itemController] file : " + file);
 
-        String root = ResourceUtils.getURL("upload").getPath();
+        String root = ResourceUtils.getURL("src/main/resources").getPath();
 
-        String filePath = root + "/itemImage";
+        String filePath = root + "static/itemImage";
+
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -149,48 +151,47 @@ public class ItemController {
         String ext = "";
         String changeName = "";
 
-//        int result = itemService.updateItem(item);
-
-        item.getItemFile().setItemNo(itemNo);
+        int result = itemService.updateItem(item);
 
         if(file.getSize() > 0) {
-
-            ItemInfoDTO itemInfo = itemService.selectOneItem(String.valueOf(itemNo));
-
-            File fileDel = new File(filePath + File.separator + itemInfo.getItemFile().getFileName());
-
-            if(fileDel.exists()){
-
-                fileDel.delete();
-            }
-
-            itemService.deleteItemFile2(itemNo);
-
             originFileName = file.getOriginalFilename();
             ext = originFileName.substring(originFileName.lastIndexOf("."));
             changeName = UUID.randomUUID().toString().replace("-", "");
 
+
             ItemFileDTO itemFile = new ItemFileDTO();
 
-            itemFile.setItemNo(itemNo);
-            itemFile.setOriginName(originFileName);
-            itemFile.setFileName(changeName + ext);
 
-            itemService.insertItemFile(itemFile);
+            if (result > 0) {
 
-            itemService.updateItem(item);
+                int result2 = itemService.deleteItemFile2(itemNo);
+
+                if (result2 > 0) {
+
+                    itemFile.setItemNo(itemNo);
+                    itemFile.setOriginName(originFileName);
+                    itemFile.setFileName(changeName + ext);
+
+                    itemService.insertItemFile(itemFile);
+                } else {
+
+                    itemFile.setItemNo(itemNo);
+                    itemFile.setOriginName(originFileName);
+                    itemFile.setFileName(changeName + ext);
+
+                    itemService.insertItemFile(itemFile);
+                }
+
+            }
 
 
             try {
-                file.transferTo(new File(filePath + mkdir.separator + changeName + ext));
+                file.transferTo(new File(filePath + "\\" + changeName + ext));
             } catch (IOException e) {
 
                 e.printStackTrace();
-                new File(filePath + mkdir.separator + changeName + ext).delete();
+                new File(filePath + "\\" + changeName + ext).delete();
             }
-        } else{
-
-            itemService.updateItem(item);
         }
 
         rttr.addFlashAttribute("message", "품목 수정 성공!");
