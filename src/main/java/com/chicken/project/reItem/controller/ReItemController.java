@@ -51,12 +51,12 @@ public class ReItemController {
     // 가맹점 반품서작성
     @PostMapping("/user/insertReItem")
     public ModelAndView reItems( String[] returnCount2
-                                , String[] itemNo2
-                                , @AuthenticationPrincipal StoreImpl storeImpl
-                                , @ModelAttribute ReItemDTO returnItems
-                                , ModelAndView mv
-                                , @RequestParam String rReason
-                                , @RequestParam int returnTotalMoney){
+            , String[] itemNo2
+            , @AuthenticationPrincipal StoreImpl storeImpl
+            , @ModelAttribute ReItemDTO returnItems
+            , ModelAndView mv
+            , @RequestParam String rReason
+            , @RequestParam int returnTotalMoney){
 
         List<ReItemDTO> insertItem = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public class ReItemController {
         int result = reItemService.insertReItem(insertItem, storeImpl.getStoreName());
 
         if(result > 0) {
-            mv.setViewName("reItem/user/insertReItem");
+            mv.setViewName("redirect:/reItem/user/insertReItem");
         }
 
         return mv;
@@ -129,10 +129,10 @@ public class ReItemController {
     // 가맹점 반품서 상세보기
     @GetMapping("/user/itemViewReList")
     public ModelAndView viewItem(ModelAndView mv
-                                 , @AuthenticationPrincipal StoreImpl storeImpl
-                                 , HttpServletRequest request
-                                 , @ModelAttribute ReItemDTO returnItems
-                                ){
+            , @AuthenticationPrincipal StoreImpl storeImpl
+            , HttpServletRequest request
+            , @ModelAttribute ReItemDTO returnItems
+    ){
 
         String rNo = request.getParameter("rNo");
         mv.addObject("rNo", rNo);
@@ -154,10 +154,10 @@ public class ReItemController {
     // 가맹점 반품서 수정
     @GetMapping("/user/reviseReItem")
     public ModelAndView RreItem(@ModelAttribute ReItemDTO returnItems
-                                , ModelAndView mv
-                                , HttpServletRequest request
-                                , @AuthenticationPrincipal StoreImpl storeImpl
-                                ){
+            , ModelAndView mv
+            , HttpServletRequest request
+            , @AuthenticationPrincipal StoreImpl storeImpl
+    ){
         String rNo = request.getParameter("rNo");
         mv.addObject("rNo", rNo);
 
@@ -183,9 +183,9 @@ public class ReItemController {
     @PostMapping("/user/insertOneReItem")
     @ResponseBody
     public String insertOne(@RequestParam int insertOne
-                                , @AuthenticationPrincipal StoreImpl storeImpl
-                                , @ModelAttribute ReItemDTO returnItems
-                                , @RequestParam int rNo){
+            , @AuthenticationPrincipal StoreImpl storeImpl
+            , @ModelAttribute ReItemDTO returnItems
+            , @RequestParam int rNo){
         String result = "failed";
         Map<String, Object> insertItem = new HashMap<>();
         insertItem.put("storeName",storeImpl.getStoreName());
@@ -204,10 +204,10 @@ public class ReItemController {
     @PostMapping("/user/deleteReItem")
     @ResponseBody
     public String deleteOne(@RequestParam int deleteNum
-                            , @AuthenticationPrincipal StoreImpl storeImpl
-                            , @ModelAttribute ReItemDTO returnItems
-                            , @RequestParam int rNo
-                            , @RequestParam int returnCount){
+            , @AuthenticationPrincipal StoreImpl storeImpl
+            , @ModelAttribute ReItemDTO returnItems
+            , @RequestParam int rNo
+            , @RequestParam int returnCount){
 
         String result = "failed";
         Map<String, Object> deleteItem = new HashMap<>();
@@ -228,15 +228,15 @@ public class ReItemController {
     // 가맹점 수정완료
     @PostMapping("/user/reviseReItem")
     public ModelAndView updateReList(String[] returnCount2
-                                    , String[] itemNo2
-                                    , @AuthenticationPrincipal StoreImpl storeImpl
-                                    , @ModelAttribute ReItemDTO returnItems
-                                    , ModelAndView mv
-                                    , @RequestParam String rReason
-                                    , @RequestParam int total
-                                    ,  String[] firstCount
-                                    , @RequestParam int rNo
-                                    , int[] returnItemNo){
+            , String[] itemNo2
+            , @AuthenticationPrincipal StoreImpl storeImpl
+            , @ModelAttribute ReItemDTO returnItems
+            , ModelAndView mv
+            , @RequestParam String rReason
+            , @RequestParam int total
+            ,  String[] firstCount
+            , @RequestParam int rNo
+            , int[] returnItemNo){
 
         List<ReItemDTO> updateItem = new ArrayList<>();
 
@@ -265,7 +265,7 @@ public class ReItemController {
             ReItemDTO update = reItemService.selectUpReItem(String.valueOf(rNo));
             mv.addObject("updateItem", update);
             mv.addObject("rNo",rNo);
-            mv.setViewName("reItem/user/reviseReItem");
+            mv.setViewName("redirect:/reItem/user/reviseReItem");
         }
 
         return mv;
@@ -281,7 +281,7 @@ public class ReItemController {
         int result = reItemService.deleteList(rNo);
 
         if (result > 0){
-            mv.setViewName("reItem/user/storeReList");
+            mv.setViewName("redirect:/reItem/user/storeReList");
         }
 
         return mv;
@@ -337,7 +337,7 @@ public class ReItemController {
         int result = reItemService.updateItem(maps);
 
         if (result > 0) {
-            mv.setViewName("reItem/admin/adminReList");
+            mv.setViewName("redirect:/reItem/admin/adminReList");
         }
 
         return mv;
@@ -378,7 +378,7 @@ public class ReItemController {
 
         int result = reItemService.updateComplete(returnItems, adminId, rNo, storeName);
 
-        mv.setViewName("reItem/admin/adminReList");
+        mv.setViewName("redirect:/reItem/admin/adminReList");
 
         return mv;
     }
