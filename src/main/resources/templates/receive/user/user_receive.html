@@ -57,11 +57,6 @@
                                     <input type="hidden" id="startDate" name="startDate">
                                     <input type="hidden" id="endDate" name="endDate">
                                 </div>
-
-                                <!-- <button class="btn btn-light px-3" type="button" disabled></button> -->
-                                <!-- <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">
-                                  <option value="date">상품명</option>
-                                </select> -->
                                 <input class="form-control me-2 col-3" type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력해주세요.">
                                 <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>
                             </div>
@@ -129,8 +124,6 @@
                                                     <tr th:each="receive2, stat : ${ receive }">
                                                         <td th:text="${ stat.count }">1</td>
                                                         <td th:text="${ receive2.orderCode }">190201</td>
-<!--                                                        <td th:if="${ releaseList.get(stat.index).recCode eq null }"></td>-->
-<!--                                                        <td th:if="${ releaseList.get(stat.index).recCode ne null }" th:text="${ receive2.recCode }"></td>-->
                                                         <td th:text="${ receive2.recCode }"></td>
                                                         <td class="recItemNo" th:value="${ receive2.itemNo }" th:text="${ receive2.itemNo }">100001</td>
                                                         <td>
@@ -227,23 +220,6 @@
     }
 </script>
 
-<!--&lt;!&ndash; 입고 등록 메시지 띄우기 &ndash;&gt;-->
-<!--<script>-->
-<!--    function insertReceive(check){-->
-<!--        console.log(check);-->
-
-<!--        // var answer = confirm('입고를 진행하시겠습니까?');-->
-<!--        // if(answer){-->
-<!--        //     // location.href='user_receive.html';-->
-<!--        //-->
-<!--        // }-->
-<!--        // if(answer){-->
-<!--        //     var answer2 = alert('입고가 완료되었습니다.'); // 선택 항목만 입고되도록, 입고등록 완료시 alert 띄우고 조회화면으로 이동-->
-<!--        // }-->
-
-<!--    }-->
-<!--</script>-->
-
 <!-- table js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -254,14 +230,7 @@
     var form = document.getElementsByClassName('form-check');
 
     jb(document).ready(function () {
-        // 1. 상품 상세 조회
-        // $("tbody tr").click(function(){
-        //       location.href = 'javascript:showItemDetail()';
-        // });
-        // $("tbody tr input").click(function(event){
-        //   event.stopPropagation();
-        // });
-        // 2. 상품 등록
+        // 상품 등록
         jb("#btnInsertItem").click(function () {
             location.href = 'javascript:showInsertItem()';
         });
@@ -270,15 +239,6 @@
             jb(this).next(".detail-sub-tr").find(".detail-sub").slideToggle(300);
             jb(this).toggleClass('on').siblings().removeClass('on');
             jb(this).next(".detail-sub-tr").find(".detail-sub").siblings(".detail-sub").slideUp(300);
-            //
-            // var str = "";
-            // var tdArr = new Array();
-            //
-            // var tr = $(this);
-            // var td = tr.children();
-            //
-            // alert(tr.text());
-
         });
 
         $(function () {
@@ -397,48 +357,6 @@
             document.body.appendChild(form);
             form.submit();
         }
-
-
-
-
-        // if(rowLength == 0){
-        //     alert('입고할 품목을 등록해주세요.');
-        // } else{
-            // let answer = confirm('입고를 진행하시겠습니까?');
-            // let receiveItem = [];
-            // let receiveItemNo = '';
-            // let receiveAmount = '';
-            // let receiveSales = '';
-            // let receiveOrderNo = '';
-            // for(let i = 0; i < rowLength; i++){
-            //     receiveItemNo = document.getElementsByClassName('recItemNo')[i].value;
-            //     receiveAmount = document.getElementsByClassName('recAmount')[i].value;
-            //     receiveSales = document.getElementsByClassName('sales')[i].value;
-            //     receiveOrderNo = document.getElementsByClassName('recOrderNo')[i].value;
-            //     receiveItem[i] = receiveItemNo + ' ' + receiveAmount + ' ' + receiveSales + ' ' + receiveOrderNo;
-            // }
-            // console.log(receiveItem);
-            // alert(receiveItem);
-            //
-            // let form = document.createElement('form');
-            //
-            // let registList = document.createElement('input');
-            // registList.setAttribute('type', 'hidden');
-            // registList.setAttribute('name', 'registList');
-            // registList.setAttribute('value', receiveItem.toString());
-            //
-            // let empName = document.createElement('input');
-            // empName.setAttribute('type', 'hidden');
-            // empName.setAttribute('name', 'empName');
-            // empName.setAttribute('value', empNameHidden);
-            //
-            // form.appendChild(registList);
-            // form.appendChild(empName);
-            // form.setAttribute('method', 'post');
-            // form.setAttribute('action', '/receive/admin/regist');
-            // document.body.appendChild(form);
-            // form.submit();
-        // }
     }
 </script>
 </body>

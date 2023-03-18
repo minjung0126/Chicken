@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
@@ -51,29 +50,6 @@
                         <div id="result2"></div>
                     </div>
                     <div id="layerPop" class="p-5" style="display:none; width: 75%; height: 800px; position: absolute; z-index: 1; overflow: hidden;">
-                        <!-- <h2 class="mb-5">품목 관리</h2> -->
-                        <!-- <h3 class="mb-4">품목 선택</h3> -->
-                        <form method="get" action="/admin/list/regist">
-                            <!--                            <div class="input-group mb-3 col-12 float-start">-->
-                            <!--                                <select id="searchCondition" name="searchCondition" class="form-control col-2" style="max-width: max-content;">-->
-                            <!--                                    <option value="itemName">상품명</option>-->
-                            <!--                                    <option value="category">카테고리</option>-->
-                            <!--                                    <option value="make">제조사</option>-->
-                            <!--                                </select>-->
-
-                            <!--                                &lt;!&ndash; <button class="btn btn-light px-3" type="button" disabled></button> &ndash;&gt;-->
-                            <!--                                &lt;!&ndash; <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">-->
-                            <!--                                  <option value="date">상품명</option>-->
-                            <!--                                </select> &ndash;&gt;-->
-                            <!--                                <input class="form-control me-2 col-3 searchValue" id="searchValue" name="searchValue" type="text" placeholder="검색어를 입력해주세요.">-->
-                            <!--                                <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>-->
-
-                            <!--                                <div class="form-check mx-4 d-flex flex-wrap align-content-center">-->
-                            <!--                                    <input type="checkbox" class="form-check-input" id="check" name="soldout" style="margin-top: 14px">-->
-                            <!--                                    <label class="form-check-label" for="check">품절상품만</label>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                        </form>
                         <div class="my-4 d-flex justify-content-end">
                             <input type="hidden" name="itemNoList" id="result">
                             <button class="btn btn-warning me-1" type="button" style="color: #fff;" onclick='getCheckboxValue()'>품목 선택</button>
@@ -133,12 +109,8 @@
                             </table>
                         </div>
 
-
-
-
                         <div class="close-btn">
                             <a href="#" onclick="closeLayer('layerPop')" class="close">
-                                <!-- <img onclick="closeLayer('layerPop')" class="close" src="../assets/images/x.png" alt="" width="18" height="18"> -->
                                 <i class="fa fa-times close" onclick="closeLayer('layerPop')"></i>
                             </a>
                         </div>
@@ -276,40 +248,12 @@
     var form = document.getElementsByClassName('form-check');
 
     $(document).ready(function(){
-        // 1. 상품 상세 조회
-        // $("tbody tr").click(function(){
-        //       location.href = 'javascript:showItemDetail()';
-        // });
-        // $("tbody tr input").click(function(event){
-        //   event.stopPropagation();
-        // });
-        // 2. 품목 조회
+        // 품목 조회
         $("#btnSelectItem").click(function(){
             location.href = 'javascript:showSelectItem()';
         });
     });
 </script>
-
-<!--&lt;!&ndash; 체크 박스 전체 선택 &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-<!--    function selectAll(selectAll)  {-->
-<!--        const checkboxes = document.getElementsByName('option');-->
-
-<!--        checkboxes.forEach((checkbox) => {-->
-<!--            checkbox.checked = selectAll.checked;-->
-<!--        })-->
-<!--    }-->
-<!--</script>-->
-
-<!--<script type="text/javascript">-->
-<!--    function selectAll2(selectAll)  {-->
-<!--        const checkboxes = document.getElementsByName('option2');-->
-
-<!--        checkboxes.forEach((checkbox) => {-->
-<!--            checkbox.checked = selectAll.checked;-->
-<!--        })-->
-<!--    }-->
-<!--</script>-->
 
 <!-- 선택된 체크박스 값 가져오기 (추가) -->
 <script>
@@ -331,7 +275,6 @@
         document.getElementById('result').innerText
             = itemNoVal;
 
-        // alert(itemNoVal);
         closeLayer('layerPop');
 
         let form = document.createElement('form');
@@ -345,85 +288,8 @@
         form.setAttribute('action', '/receive/admin/list/regist');
         document.body.appendChild(form);
         form.submit();
-
-        // $.ajax({
-        //             url: "receive/admin/list/new",
-        //             // dataType: "json",
-        //             // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        //             type: "post",
-        //             data: {
-        //                 itemNo: itemNoVal
-        //             },
-        //             success: function (data) {
-        //                 console.log("success", data);
-        //             },
-        //             error: function () {
-        //                 alert("error");
-        //             }
-        //         });
-
-        // location.href = "/receive/admin/list/new?itemNo=" + arr;
-
-
     }
 </script>
-
-<!-- 선택한 체크박스 값 가져오기 (삭제) -->
-<!--<script>-->
-<!--    function getCheckboxValue()  {-->
-<!--        // 선택된 목록 가져오기-->
-<!--        const query = 'input[name="option2"]:checked';-->
-<!--        const selectedEls =-->
-<!--            document.querySelectorAll(query);-->
-
-<!--        // 선택된 목록에서 value 찾기-->
-<!--        let result = '';-->
-<!--        let itemNoVal = [];-->
-<!--        selectedEls.forEach((el) => {-->
-<!--            itemNoVal[itemNoVal.length] = el.value;-->
-<!--            result += el.value + ' ';-->
-<!--        });-->
-
-<!--        // 출력-->
-<!--        document.getElementById('result2').innerText-->
-<!--            = itemNoVal;-->
-
-<!--        alert(itemNoVal);-->
-
-
-<!--        let form = document.createElement('form');-->
-
-<!--        let itemNoList = document.createElement('input');-->
-<!--        itemNoList.setAttribute('type', 'hidden');-->
-<!--        itemNoList.setAttribute('name', 'itemNoList');-->
-<!--        itemNoList.setAttribute('value', itemNoVal.toString());-->
-<!--        form.appendChild(itemNoList);-->
-<!--        form.setAttribute('method', 'post');-->
-<!--        form.setAttribute('action', '/receive/admin/list/new');-->
-<!--        document.body.appendChild(form);-->
-<!--        form.submit();-->
-
-<!--        // $.ajax({-->
-<!--        //             url: "receive/admin/list/new",-->
-<!--        //             // dataType: "json",-->
-<!--        //             // contentType: "application/x-www-form-urlencoded; charset=UTF-8",-->
-<!--        //             type: "post",-->
-<!--        //             data: {-->
-<!--        //                 itemNo: itemNoVal-->
-<!--        //             },-->
-<!--        //             success: function (data) {-->
-<!--        //                 console.log("success", data);-->
-<!--        //             },-->
-<!--        //             error: function () {-->
-<!--        //                 alert("error");-->
-<!--        //             }-->
-<!--        //         });-->
-
-<!--        // location.href = "/receive/admin/list/new?itemNo=" + arr;-->
-
-
-<!--    }-->
-<!--</script>-->
 
 <!-- 선택 삭제 -->
 <script>
@@ -465,20 +331,6 @@
 
     }
 </script>
-
-<!-- 입고 등록 메시지 띄우기 -->
-<!--<script>-->
-<!--    function insertReceive(){-->
-<!--        var answer = confirm('입고를 진행하시겠습니까?');-->
-<!--        if(answer){-->
-<!--            location.href='admin_receive.html';-->
-<!--        }-->
-<!--        if(answer){-->
-<!--            var answer2 = alert('입고가 완료되었습니다.'); // 선택 항목만 입고되도록, 입고등록 완료시 alert 띄우고 조회화면으로 이동-->
-<!--        }-->
-
-<!--    }-->
-<!--</script>-->
 
 <!-- 레이어 팝업 -->
 <script>
@@ -604,8 +456,7 @@
                 receiveItem[i] = receiveItemNo + ' ' + receiveAmount;
             }
             console.log(receiveItem);
-            // alert(receiveItem);
-            //
+
             let form = document.createElement('form');
 
             let registList = document.createElement('input');
@@ -628,63 +479,6 @@
     }
 </script>
 
-
-<!-- 개별 삭제 -->
-<!--<script>-->
-<!--    $('.saveBtn').on('click', function() {-->
-
-<!--        //현재 row의 정보 가져오기-->
-<!--        var thisRow = $(this).closest('tr');-->
-
-<!--        //주소 input 값 가져오기-->
-<!--        var addr = thisRow.find('td:eq(0)').find('input').val();-->
-<!--        //섦졍 input 값 가져오기-->
-<!--        var txt = thisRow.find('td:eq(1)').find('input').val();-->
-
-<!--        alert(addr + ", " + txt + "을(를) 클릭하였습니다.");-->
-
-<!--    })-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    function rowClicked() {-->
-
-<!--        var table =document.getElementById('receiveTable');-->
-<!--        var rowList = table.rows; // *1)rows collection-->
-
-<!--        for (i=1; i<rowList.length; i++) {//thead부분 제외.-->
-
-<!--            var row = rowList[i];-->
-<!--            var tdsNum = row.childElementCount;// 자식요소 갯수 구하기.-->
-
-<!--            row.onclick = function(){-->
-<!--                return function(){-->
-
-<!--                    var str = "";-->
-<!--                    for (var j = 0; j < tdsNum; j++){//row안에 있는 값 순차대로 가져오기.-->
-
-<!--                        var row_value = this.cells[j].innerHTML; //*2)cells collection-->
-<!--                        str += row_value+' ';//값을 하나의 text값으로 만듦-->
-
-<!--                    };//td for-->
-
-<!--                    document.querySelector('.test').innerText =str;//p태그 안에 값 넣어주기.-->
-
-<!--                };//return-->
-<!--            }(row);//onclick-->
-<!--        }//for-->
-
-<!--    }//function-->
-
-<!--    window.onload = rowClicked();-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    $('#receiveTable').on("click", "tr", function(){-->
-<!--       -->
-<!--        console.log($(this).find("td:eq(0)").te)-->
-<!--    });-->
-<!--</script>-->
 <script type="text/javascript">
     $(document).ready(function() {
         $("#cbx_chkAll1").click(function() {

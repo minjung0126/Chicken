@@ -172,15 +172,10 @@
             >>
           </button>
         </div>
-
         <!-- E: paging -->
-
-        <!--        <div th:include="item/admin/admin_item_detail.html"></div>-->
-
       </div>
     </div>
     <!-- E: main layout -->
-
   </div>
   <!-- E: container -->
 </div>
@@ -215,8 +210,6 @@
 
       form.appendChild(itemNo);
 
-
-
       /* 팝업 */
 
       //창 크기 지정
@@ -235,15 +228,6 @@
 
       //등록된 url 및 window 속성 기준으로 팝업창을 연다.
       window.open(url, "품목 상세 조회", windowStatus);
-      // form.setAttribute('method', 'get');
-      // form.setAttribute('action', url);
-      // document.body.appendChild(form);
-      // form.submit();
-
-
-
-      // openLayer('layerPopDetail', 9, 10);
-      // location.href="/admin_item_detail.html";
     });
     $("tbody tr input").click(function(event){
       event.stopPropagation();
@@ -295,8 +279,20 @@
     pop.style.display = "none";
   }
 </script>
+<!-- 파일 이미지 required -->
+<script>
+  $(function() {
+    $("#registBtn").on('click', function (){
+      var fileChk = document.getElementById('input-file-regist');
+      if(!fileChk.value){
+        alert('이미지를 업로드해주세요.');
+        return false;
+      }
+    });
+  });
+</script>
 
-<!-- 파일 이미지 -->
+<!-- 파일 이미지 등록 -->
 <script>
   $(function() {
     $("#input-file-regist").on('change', function(){
@@ -376,8 +372,6 @@
         }
       }
     }
-
-
   }
 </script>
 
@@ -397,28 +391,5 @@
     });
   });
 </script>
-
-<!-- 상품 상세 페이지 팝업 띄우기 -->
-<!--<script type="text/javascript">-->
-<!--  function showItemDetail() {-->
-
-<!--    //창 크기 지정-->
-<!--    var width = 1200;-->
-<!--    var height = 800;-->
-
-<!--    //pc화면기준 가운데 정렬-->
-<!--    var left = (window.screen.width / 2) - (width/2);-->
-<!--    var top = (window.screen.height / 4);-->
-
-<!--    //윈도우 속성 지정-->
-<!--    var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';-->
-
-<!--    //연결하고싶은url-->
-<!--    const url = "admin_item_detail.html";-->
-
-<!--    //등록된 url 및 window 속성 기준으로 팝업창을 연다.-->
-<!--    window.open(url, "hello popup", windowStatus);-->
-<!--  }-->
-<!--</script>-->
 </body>
 </html>

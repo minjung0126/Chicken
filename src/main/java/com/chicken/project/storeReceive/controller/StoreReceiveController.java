@@ -218,31 +218,6 @@ public class StoreReceiveController {
             }
         }
 
-
-
-//        List<StoreItemListDTO> storeItem = storeReceiveService.selectStoreItem();
-//        List<Object> itemNoList = new ArrayList<>();
-//        for(int i = 0; i < storeItem.size(); i++){
-//            int itemNo = storeItem.get(i).getItemNo();
-//            itemNoList.add(itemNo);
-//        }
-//
-//         receiveList의 갯수만큼
-//        for()
-//        타입 result = storeReceiveService.selectStoreItem(itemNo);
-//
-//        if(result != null){
-//            // update
-//        } else {
-//            // insert
-//        }
-//         품목이 이미 있으면 update, 없으면 insert로 추가해주기
-//        storeReceiveService.updateItem();
-//        storeReceiveService.insertItem();
-
-
-
-
         return "redirect:/storeReceive/user/list";
     }
 }
