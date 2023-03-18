@@ -56,10 +56,16 @@ public class ReceiveServiceImpl implements ReceiveService{
         return result;
     }
 
-    @Override
-    public List<ReceiveOfficeDTO> selectAllItem(SelectCriteria selectCriteria) {
+//    @Override
+//    public List<ReceiveOfficeDTO> selectAllItem(SelectCriteria selectCriteria) {
+//
+//        return receiveMapper.selectAllItem(selectCriteria);
+//    }
 
-        return receiveMapper.selectAllItem(selectCriteria);
+    @Override
+    public List<ReceiveOfficeDTO> selectAllItem() {
+
+        return receiveMapper.selectAllItem();
     }
 
     @Override

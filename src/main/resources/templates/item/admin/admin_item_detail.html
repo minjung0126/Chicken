@@ -16,6 +16,7 @@
 <body class="my-auto">
 <section class="" style="margin: 0 ">
     <div class="container-fluid">
+        <!-- <h2 class="mb-5">품목 관리</h2> -->
         <div class="bg-white rounded-lg d-block d-sm-flex">
             <div class="profile-tab-nav border-right" style="width: 250px; height: 798px;
             box-shadow: 5px 5px 10px rgb(200 200 200 / 10%);
@@ -31,18 +32,26 @@
                         <i class="fa fa-shopping-cart text-center mr-1"></i>
                         상품 상세 조회
                     </a>
+                    <!--          <a class="nav-link" id="stock-tab" data-toggle="pill" href="#stock" role="tab" aria-controls="stock" aria-selected="false">
+                                <i class="fa fa-truck text-center mr-1"></i>
+                                재고 조회
+                              </a>-->
                 </div>
             </div>
             <div class="tab-content px-4 py-3 px-md-5 " id="v-pills-tabContent" >
                 <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
                     <h3 class="mt-3 mb-4">상품 정보</h3>
                     <form  id="itemForm"  method="post" action="/item/admin/update" enctype="multipart/form-data">
+
+                        <!--            onsubmit="window.close(); window.opener.location.reload();"-->
                         <input type="hidden" name="itemNo" th:value="${ item.itemNo }"/>
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <!-- <label class="mb-2">상품 이미지</label> -->
                                 <div class="border d-flex flex-wrap justify-content-center align-content-center" style="width:100px; height: 100px; border-radius: 5px;">
                                     <label class="input-file-button-detail" for="input-file-detail" style="margin-bottom: 0;">
-                                        <img id="View" class="rounded" th:src="'/upload/itemImage/' + ${ item.fileName }" width="100px" height="100px" style="margin-top: 1px; cursor: pointer;">
+                                        <!--                    <i class="fa fa-file-image-o fa-3x" aria-hidden="true" style="cursor: pointer; color: #ffe8a4;"></i>-->
+                                        <img id="View" class="rounded" th:src="'/upload/itemImage/' + ${ item.fileName }" width="100px" height="100px" style="margin-top: 1px; cursor: pointer;" onerror="this.onerror=null; this.src='/images/logo.png';">
                                     </label>
                                     <input class="form-control" type="file" id="input-file-detail" name="file" style="display:none; cursor: pointer;">
                                 </div>
@@ -123,6 +132,177 @@
                         </div>
                     </form>
                 </div>
+                <div class="tab-pane fade" id="stock" role="tabpanel" aria-labelledby="stock-tab">
+                    <h3 class="mb-4 mt-3">재고 조회</h3>
+                    <!-- <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mb-2">상품명</label>
+                            <input type="text" class="form-control" value="닭다리" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mb-2">상품 코드</label>
+                            <input type="text" class="form-control" value="100000" disabled>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mb-2">품절여부</label>
+                            <input type="text" class="form-control" value="보유" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="mb-2">재고량</label>
+                            <input type="text" class="form-control" value="1,700" disabled>
+                        </div>
+                      </div>
+                    </div> -->
+                    <!-- <div class="my-3 d-flex justify-content-center">
+                      <button class="btn btn-warning me-1" style="color:white">확인</button>
+                    </div> -->
+                    <div>
+                        <!--            <div class="table-responsive text-nowrap">-->
+                        <!--              <table class="table">-->
+                        <!--                <thead>-->
+                        <!--                <tr>-->
+                        <!--                  <th>처리일시</th>-->
+                        <!--                  <th>입/출고</th>-->
+                        <!--                  <th>처리수량</th>-->
+                        <!--                  <th>누적재고</th>-->
+                        <!--                  <th>입/출고번호</th>-->
+                        <!--                </tr>-->
+                        <!--                </thead>-->
+                        <!--                <tbody>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1800</td>-->
+                        <!--                  <td>PS0002</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>입고</td>-->
+                        <!--                  <td class="text-primary">+1000</td>-->
+                        <!--                  <td>1900</td>-->
+                        <!--                  <td>PR0002</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-08</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>900</td>-->
+                        <!--                  <td>PS0001</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>기초재고 등록</td>-->
+                        <!--                  <td>입고</td>-->
+                        <!--                  <td class="text-primary">+1000</td>-->
+                        <!--                  <td>1000</td>-->
+                        <!--                  <td>PR0001</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1800</td>-->
+                        <!--                  <td>PS0002</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>입고</td>-->
+                        <!--                  <td class="text-primary">+1000</td>-->
+                        <!--                  <td>1900</td>-->
+                        <!--                  <td>PR0002</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-08</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>900</td>-->
+                        <!--                  <td>PS0001</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>기초재고 등록</td>-->
+                        <!--                  <td>입고</td>-->
+                        <!--                  <td class="text-primary">+1000</td>-->
+                        <!--                  <td>1000</td>-->
+                        <!--                  <td>PR0001</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                <tr>-->
+                        <!--                  <td>2022-07-09</td>-->
+                        <!--                  <td>출고</td>-->
+                        <!--                  <td class="text-danger">-100</td>-->
+                        <!--                  <td>1700</td>-->
+                        <!--                  <td>PS0003</td>-->
+                        <!--                </tr>-->
+                        <!--                </tbody>-->
+                        <!--              </table>-->
+                        <!--            </div>-->
+                    </div>
+                    <!-- <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-light disabled" id="startPage"><<</button>
+                    <button type="button" class="btn btn-light mx-1 disabled"><</button>
+                    <button type="button" class="btn btn-warning mx-1 disabled" style="color:white">1</button>
+                    <button type="button" class="btn btn-light mx-1">2</button>
+                    <button type="button" class="btn btn-light mx-1">></button>
+                    <button type="button" class="btn btn-light mx-1" id="maxPage">>></button>
+                    </div> -->
+
+                </div>
             </div>
         </div>
     </div>
@@ -132,6 +312,8 @@
         $("#input-file-detail").on('change', function(){
             readURL(this);
         });
+
+
     });
 
     $("#btnModify").on('click', function (){
@@ -141,11 +323,21 @@
         }
     });
 
+    function closeSelf(f) {
+        //f.submit();
+        // opener.location.reload(true);
+        //  opener.location.href="/item/admin/list1";
+        self.close();
+
+
+    }
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#View').attr('src', e.target.result);
+                // document.getElementById('View').src=e.target.result;
             }
             reader.readAsDataURL(input.files[0]);
         }

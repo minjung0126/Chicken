@@ -174,4 +174,42 @@ public class ItemServiceImpl implements ItemService{
 
         return result;
     }
+
+    @Override
+    public int selectItemFileCheck(String itemNo) {
+
+        int count = itemMapper.selectItemFileCheck(itemNo);
+
+        return count;
+    }
+
+    @Override
+    public int selectTotalItemCount() {
+
+        int result = itemMapper.selectTotalItemCount();
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public int updateItemFile(ItemFileDTO itemFile) throws ItemUpdateException{
+
+        int result = itemMapper.updateItemFile(itemFile);
+
+        if (!(result > 0)) {
+
+            throw new ItemUpdateException("파일 수정에 실패하셨습니다.");
+        }
+
+        return result;
+    }
+
+    @Override
+    public ItemFileDTO selectOneItemFile(int itemNo) {
+
+        ItemFileDTO oneFile = itemMapper.selectOneItemFile(itemNo);
+
+        return oneFile;
+    }
 }

@@ -43,7 +43,7 @@
                COUNT(*)
           FROM ITEM_INFO I
           JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-          JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
         <where>
             <if test="searchCondition == 'itemName'">
                 I.ITEM_NAME LIKE '%' || #{ searchValue } || '%'
@@ -101,7 +101,7 @@
                              END soldout
                         FROM ITEM_INFO I
                         JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-                        JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+                        LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
                         <where>
                             <if test="searchCondition == 'itemName'">
                                 I.ITEM_NAME LIKE '%' || #{ searchValue } || '%'
@@ -208,11 +208,41 @@
          WHERE ITEM_NO = #{ itemNo }
     </delete>
 
+    <select id="selectItemFileCheck" resultType="_int" parameterType="hashmap">
+        SELECT
+               COUNT(*)
+          FROM ITEM_FILE
+         WHERE ITEM_NO = #{ itemNo }
+    </select>
+
+    <update id="updateItemFile">
+        UPDATE ITEM_FILE
+           SET ORIGIN_NAME = #{ originName }
+             , FILE_NAME = #{ fileName }
+         WHERE ITEM_NO = #{ itemNo }
+    </update>
+
+    <select id="selectOneItemFile" resultMap="itemFileResultMap">
+        SELECT
+               *
+          FROM ITEM_FILE
+         WHERE ITEM_NO = #{ itemNo }
+    </select>
+
     <delete id="deleteItemFile">
         DELETE
           FROM ITEM_FILE
          WHERE ITEM_NO = #{ itemNo }
     </delete>
+
+    <select id="selectTotalItemCount" resultType="_int" parameterType="hashmap">
+        SELECT
+                COUNT(*)
+          FROM ITEM_INFO I
+          JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+         WHERE I.ITEM_DELETE_YN = 'N'
+    </select>
 
     <select id="selectOneItem" resultMap="itemInfoResultMap">
         SELECT
@@ -234,7 +264,7 @@
                      END soldout
           FROM ITEM_INFO I
           JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-          JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
          WHERE I.ITEM_NO = #{ itemNo }
     </select>
 
@@ -266,7 +296,7 @@
                               END soldout
                    FROM ITEM_INFO I
                    JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-                   JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+                   LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
                   WHERE I.ITEM_DELETE_YN = 'N'
                 ORDER BY 1 DESC ) B
     <![CDATA[

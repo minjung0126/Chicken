@@ -49,4 +49,13 @@ public interface ItemService {
 
     @Transactional
     int insertItemFile(ItemFileDTO itemFile) throws ItemInsertException;
+
+    int selectItemFileCheck(String itemNo);
+
+    int selectTotalItemCount();
+
+    @Transactional
+    int updateItemFile(ItemFileDTO itemFile) throws ItemUpdateException;
+
+    ItemFileDTO selectOneItemFile(int itemNo);
 }
