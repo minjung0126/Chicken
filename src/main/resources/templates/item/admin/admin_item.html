@@ -56,7 +56,7 @@
           <h3>품목 관리</h3>
           <br>
           <div class="col-6">
-            <form th:action="@{ /item/admin/list }">
+            <form th:action="@{ /templates/item/admin/list }">
               <div class="input-group mb-3">
                 <select class="form-select" id="searchCondition" name="searchCondition" style="max-width: max-content;">
                   <option value="itemName" th:selected="${ selectCriteria.getSearchCondition() == 'itemName'}">상품명</option>
@@ -110,7 +110,7 @@
               <td>
                 <div class="img-info">
                   <div class="img-info__img">
-                    <img th:src="'/upload/itemImage/' + ${ item.itemFile.fileName }" alt="">
+                    <img th:src="'/upload/itemImage/' + ${ item.itemFile.fileName }" alt="" onerror="this.onerror=null; this.src='/images/logo.png';">
                   </div>
                 </div>
               </td>

@@ -43,7 +43,7 @@
                COUNT(*)
           FROM ITEM_INFO I
           JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-          JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
         <where>
             <if test="searchCondition == 'itemName'">
                 I.ITEM_NAME LIKE '%' || #{ searchValue } || '%'
@@ -101,7 +101,7 @@
                              END soldout
                         FROM ITEM_INFO I
                         JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-                        JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+                        LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
                         <where>
                             <if test="searchCondition == 'itemName'">
                                 I.ITEM_NAME LIKE '%' || #{ searchValue } || '%'
@@ -234,7 +234,7 @@
                      END soldout
           FROM ITEM_INFO I
           JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-          JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
          WHERE I.ITEM_NO = #{ itemNo }
     </select>
 
@@ -266,7 +266,7 @@
                               END soldout
                    FROM ITEM_INFO I
                    JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-                   JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+                   LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
                   WHERE I.ITEM_DELETE_YN = 'N'
                 ORDER BY 1 DESC ) B
     <![CDATA[

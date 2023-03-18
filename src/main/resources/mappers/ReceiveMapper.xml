@@ -153,7 +153,7 @@ ORDER BY 1 ASC
      JOIN RECEIVE_OFFICE_ITEM RI ON(RO.REC_CODE = RI.REC_CODE)
      JOIN ITEM_INFO I ON (RI.ITEM_NO = I.ITEM_NO)
      JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-     JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+     LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
     WHERE RO.REC_CODE = #{ recCode }
     ORDER BY 1, 2
     </select>
@@ -175,27 +175,18 @@ ORDER BY 1 ASC
                END soldout
         FROM ITEM_INFO I
         JOIN ITEM_CATEGORY IC ON (I.CATEGORY_NO = IC.CATEGORY_NO)
-        JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
-        <where>
-            <if test="searchCondition == 'itemName'">
-                I.ITEM_NAME = #{ searchValue }
-            </if>
-            <if test="searchCondition == 'category'">
-                IC.CATEGORY_NAME = #{ searchValue }
-            </if>
-            <if test="searchCondition == 'make'">
-                I.ITEM_MAKE = #{ searchValue }
-            </if>
-        </where>
+        LEFT OUTER JOIN ITEM_FILE IF ON (I.ITEM_NO = IF.ITEM_NO)
+        WHERE I.ITEM_DELETE_YN = 'N'
       ORDER BY 1
     </select>
 
-    <select id="selectItemTotalCount" resultType="_int" parameterType="hashmap">
-        SELECT
-               COUNT(*)
-          FROM ITEM_INFO I
-          JOIN ITEM_CATEGORY IC ON(I.CATEGORY_NO = IC.CATEGORY_NO)
-    </select>
+<!--    <select id="selectItemTotalCount" resultType="_int" parameterType="hashmap">-->
+<!--        SELECT-->
+<!--               COUNT(*)-->
+<!--          FROM ITEM_INFO I-->
+<!--          JOIN ITEM_CATEGORY IC ON(I.CATEGORY_NO = IC.CATEGORY_NO)-->
+<!--         WHERE I.ITEM_DELETE_YN = 'N'-->
+<!--    </select>-->
 
     <select id="selectRegistReceive" parameterType="hashMap" resultMap="itemInfoResultMap">
         SELECT
@@ -206,7 +197,7 @@ ORDER BY 1 ASC
              , I.ITEM_AMOUNT
              , I.ITEM_PURCHASE
           FROM ITEM_INFO I
-          JOIN ITEM_FILE IF ON(IF.ITEM_NO = I.ITEM_NO)
+          LEFT OUTER JOIN ITEM_FILE IF ON(IF.ITEM_NO = I.ITEM_NO)
          WHERE I.ITEM_NO IN 
          <foreach collection="itemNoList" item="itemNo" open="(" separator=", " close=")">
              #{ itemNo }
