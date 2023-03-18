@@ -153,37 +153,39 @@ public class ItemController {
 
         int result = itemService.updateItem(item);
 
+        // 파일이 변경된 경우
         if(file.getSize() > 0) {
             originFileName = file.getOriginalFilename();
             ext = originFileName.substring(originFileName.lastIndexOf("."));
             changeName = UUID.randomUUID().toString().replace("-", "");
 
-
             ItemFileDTO itemFile = new ItemFileDTO();
+            itemFile.setItemNo(itemNo);
+            itemFile.setOriginName(originFileName);
+            itemFile.setFileName(changeName + ext);
 
+            // DB에 itemNo가 일치하는 파일이 있는지 확인
+            int check = itemService.selectItemFileCheck(String.valueOf(itemNo));
 
-            if (result > 0) {
+            // 파일 이미지가 있으면 DB 수정, 서버에서 기존 이미지 삭제 후 재등록
+            if (result > 0 && check > 0) {
 
-                int result2 = itemService.deleteItemFile2(itemNo);
+                ItemFileDTO itemFileDTO = itemService.selectOneItemFile(itemNo);
 
-                if (result2 > 0) {
+                File fileDel = new File(filePath + File.separator + itemFileDTO.getFileName());
 
-                    itemFile.setItemNo(itemNo);
-                    itemFile.setOriginName(originFileName);
-                    itemFile.setFileName(changeName + ext);
-
-                    itemService.insertItemFile(itemFile);
-                } else {
-
-                    itemFile.setItemNo(itemNo);
-                    itemFile.setOriginName(originFileName);
-                    itemFile.setFileName(changeName + ext);
-
-                    itemService.insertItemFile(itemFile);
+                if(fileDel.exists()){
+                    fileDel.delete();
                 }
 
-            }
+                itemService.updateItemFile(itemFile);
 
+            }
+            // 파일 이미지가 없으면 DB 새로 등록, 서버에 이미지 새로 등록
+            else if (result > 0) {
+
+                itemService.insertItemFile(itemFile);
+            }
 
             try {
                 file.transferTo(new File(filePath + File.separator + changeName + ext));
@@ -254,9 +256,17 @@ public class ItemController {
             itemService.insertItem(item);
         }
 
+        int totalCount = itemService.selectTotalItemCount();
+        int page = 0;
+        if(totalCount % 10 != 0){
+            page = totalCount / 10 + 1;
+        } else {
+            page = totalCount / 10;
+        }
+
         rttr.addFlashAttribute("message", "상품 등록 성공");
 
-        return "redirect:/item/admin/list";
+        return "redirect:/item/admin/list?currentPage=" + page;
     }
 
     @PostMapping("/admin/delete")
@@ -273,7 +283,9 @@ public class ItemController {
 
             int result = itemService.deleteItem(itemNo[i]);
 
-            if(result > 0){
+            int check = itemService.selectItemFileCheck(itemNo[i]);
+
+            if(result > 0 && check > 0){
 
                 String rootItem = ResourceUtils.getURL("upload").getPath();
 
@@ -286,14 +298,22 @@ public class ItemController {
                     mkdirItem.delete();
                 }
 
-                itemService.deleteItemFile(itemNo[i]); // cascade로 바꾸고 지우기
+                itemService.deleteItemFile(itemNo[i]);
             }
 
         }
 
+        int totalCount = itemService.selectTotalItemCount();
+        int page = 0;
+        if(totalCount % 10 != 0){
+            page = totalCount / 10 + 1;
+        } else {
+            page = totalCount / 10;
+        }
+
         rttr.addFlashAttribute("message", "상품 삭제 성공");
 
-        return "redirect:/item/admin/list";
+        return "redirect:/item/admin/list?currentPage=" + page;
     }
 
 

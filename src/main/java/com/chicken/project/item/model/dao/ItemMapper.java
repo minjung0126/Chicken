@@ -30,4 +30,12 @@ public interface ItemMapper {
     int deleteItemFile2(int item);
 
     int insertItemFile(ItemFileDTO itemFile);
+
+    int selectItemFileCheck(String itemNo);
+
+    int selectTotalItemCount();
+
+    int updateItemFile(ItemFileDTO itemFile);
+
+    ItemFileDTO selectOneItemFile(int itemNo);
 }
