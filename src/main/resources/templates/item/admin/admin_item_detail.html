@@ -51,7 +51,7 @@
                                 <div class="border d-flex flex-wrap justify-content-center align-content-center" style="width:100px; height: 100px; border-radius: 5px;">
                                     <label class="input-file-button-detail" for="input-file-detail" style="margin-bottom: 0;">
                                         <!--                    <i class="fa fa-file-image-o fa-3x" aria-hidden="true" style="cursor: pointer; color: #ffe8a4;"></i>-->
-                                        <img id="View" class="rounded" th:src="'/upload/itemImage/' + ${ item.fileName }" width="100px" height="100px" style="margin-top: 1px; cursor: pointer;" onerror="this.onerror=null; this.src='/images/logo.png';">
+                                        <img id="view" class="rounded" th:src="'/upload/itemImage/' + ${ item.fileName }" width="100px" height="100px" style="margin-top: 1px; cursor: pointer;" onerror="this.onerror=null; this.src='/images/logo.png';">
                                     </label>
                                     <input class="form-control" type="file" id="input-file-detail" name="file" style="display:none; cursor: pointer;">
                                 </div>
@@ -59,7 +59,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-2">상품명</label>
-                                    <input type="text" id="itemName" name="itemName" class="form-control" th:value="${ item.itemName }">
+                                    <input type="text" id="itemName" name="itemName" class="form-control" th:value="${ item.itemName }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -89,19 +90,22 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-2">판매규격</label>
-                                    <input type="text" id="itemStandard" name="itemStandard" class="form-control" th:value="${ item.itemStandard }">
+                                    <input type="text" id="itemStandard" name="itemStandard" class="form-control" th:value="${ item.itemStandard }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-2">제조사</label>
-                                    <input type="text" id="itemMake" name="itemMake" class="form-control" th:value="${ item.itemMake }">
+                                    <input type="text" id="itemMake" name="itemMake" class="form-control" th:value="${ item.itemMake }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-2">재고량</label>
-                                    <input type="text" id="itemAmount" name="itemAmount" class="form-control" th:value="${ item.itemAmount }">
+                                    <input type="text" id="itemAmount" name="itemAmount" class="form-control" th:value="${ item.itemAmount }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -116,13 +120,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-1">매입 단가</label>
-                                    <input type="text" id="itemPurchase" name="itemPurchase" class="form-control" th:value="${ item.itemPurchase }">
+                                    <input type="text" id="itemPurchase" name="itemPurchase" class="form-control" th:value="${ item.itemPurchase }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="mb-1">매출 단가</label>
-                                    <input type="text" id="itemSales" name="itemSales" class="form-control" th:value="${ item.itemSales }">
+                                    <input type="text" id="itemSales" name="itemSales" class="form-control" th:value="${ item.itemSales }" required oninput="inputClick(this.id)">
+                                    <div class="invalid-feedback">필수 정보입니다.</div>
                                 </div>
                             </div>
                         </div>
@@ -312,14 +318,69 @@
         $("#input-file-detail").on('change', function(){
             readURL(this);
         });
-
-
     });
+
+    function inputClick(input){
+
+        if($('#' + input).val().trim()==''){
+            $('#' + input).next().css('display', 'block');
+            $('#' + input).next().text('필수 정보입니다.');
+            $('#' + input).val('');
+        }
+        if(!($('#' + input).val().trim()=='')){
+            $('#' + input).next().css('display', 'none');
+        }
+        if(input == 'itemAmount' || input == 'itemPurchase' || input == 'itemSales'){
+            if(!(/^[0-9]*$/.test($('#' + input).val()))){
+                $('#' + input).next().css('display', 'block');
+                $('#' + input).next().text('숫자만 입력해주세요.');
+            }
+        }
+    }
 
     $("#btnModify").on('click', function (){
 
+        if(document.getElementById('itemName').value==''){
+            document.getElementById('itemName').focus();
+            return false;
+        }
+        if(document.getElementById('itemStandard').value==''){
+            document.getElementById('itemStandard').focus();
+            return false;
+        }
+        if(document.getElementById('itemMake').value==''){
+            document.getElementById('itemMake').focus();
+            return false;
+        }
+        if(document.getElementById('itemAmount').value==''){
+            document.getElementById('itemAmount').focus();
+            return false;
+        }
+        if(document.getElementById('itemPurchase').value==''){
+            document.getElementById('itemPurchase').focus();
+            return false;
+        }
+        if(document.getElementById('itemSales').value==''){
+            document.getElementById('itemSales').focus();
+            return false;
+        }
+        if(isNaN(document.getElementById('itemAmount').value)){
+            document.getElementById('itemAmount').focus();
+            return false;
+        }
+        if(isNaN(document.getElementById('itemPurchase').value)){
+            document.getElementById('itemPurchase').focus();
+            return false;
+        }
+        if(isNaN(document.getElementById('itemSales').value)){
+            document.getElementById('itemSales').focus();
+            return false;
+        }
+
         if(confirm("수정하시겠습니까?")){
             $("#itemForm").submit();
+        } else {
+            return false;
         }
     });
 
@@ -336,7 +397,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#View').attr('src', e.target.result);
+                $('#view').attr('src', e.target.result);
                 // document.getElementById('View').src=e.target.result;
             }
             reader.readAsDataURL(input.files[0]);

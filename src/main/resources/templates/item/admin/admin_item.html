@@ -70,7 +70,7 @@
           </div>
 
           <div class="col-11 d-flex justify-content-end" style="margin-left: 8%;">
-            <button class="btn btn-warning mx-2" type="submit" style="color:#fff;" onclick="openLayer('layerPopRegist',9, 15)">신규 등록</button>
+            <button class="btn btn-warning mx-2" type="submit" style="color:#fff;" onclick="openLayer('layerPop',9, 15)">신규 등록</button>
             <button class="btn btn-light" type="submit" style="color:#fff; background-color: #ccc;" onclick="getCheckboxValue()">선택 삭제</button>
           </div>
 
@@ -285,6 +285,12 @@
 <!-- 레이어 팝업 -->
 <script>
   function openLayer(IdName, tpos, lpos){
+    var fileImage = document.createElement('i');
+    fileImage.className = 'fa fa-file-image-o fa-3x p-4';
+    fileImage.setAttribute("aria-hidden", true);
+    fileImage.setAttribute("style", "cursor: pointer; color : #ffe8a4;");
+    document.querySelector('.input-file-button-regist').appendChild(fileImage);
+
     var pop = document.getElementById(IdName);
     pop.style.display = "block";
     pop.style.top = tpos + "%";
@@ -293,6 +299,14 @@
   function closeLayer(IdName){
     var pop = document.getElementById(IdName);
     pop.style.display = "none";
+    $('#formItemRegist')[0].reset();
+    $('#input-file-regist').val("");
+    $('.input-file-button-regist #view').attr('src', '#');
+    $('.input-file-button-regist #view').addClass('d-none');
+    $('.input-file-button-regist .fa').remove();
+    for(let i = 0; i < $('.invalid-feedback').length; i++){
+      $('.invalid-feedback')[i].setAttribute('style', 'display:none');
+    }
   }
 </script>
 
@@ -306,8 +320,8 @@
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            $('.input-file-button-regist #View').attr('src', e.target.result);
-            $('.input-file-button-regist #View').removeClass('d-none');
+            $('.input-file-button-regist #view').attr('src', e.target.result);
+            $('.input-file-button-regist #view').removeClass('d-none');
             $('.input-file-button-regist .fa').remove();
           }
           reader.readAsDataURL(input.files[0]);
@@ -325,8 +339,8 @@
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            $('.input-file-button-detail #View2').attr('src', e.target.result);
-            $('.input-file-button-detail #View2').removeClass('d-none');
+            $('.input-file-button-detail #view2').attr('src', e.target.result);
+            $('.input-file-button-detail #view2').removeClass('d-none');
             $('.input-file-button-detail .fa').remove();
           }
           reader.readAsDataURL(input.files[0]);
@@ -395,6 +409,75 @@
       if(total != checked) $("#cbx_chkAll1").prop("checked", false);
       else $("#cbx_chkAll1").prop("checked", true);
     });
+  });
+</script>
+
+<script>
+  function inputClick(input){
+
+    if($('#' + input).val().trim()==''){
+      $('#' + input).next().css('display', 'block');
+      $('#' + input).next().text('필수 정보입니다.');
+      $('#' + input).val('');
+    }
+    if(!($('#' + input).val().trim()=='')){
+      $('#' + input).next().css('display', 'none');
+    }
+    if(input == 'itemAmount' || input == 'itemPurchase' || input == 'itemSales'){
+      if(!(/^[0-9]*$/.test($('#' + input).val()))){
+        $('#' + input).next().css('display', 'block');
+        $('#' + input).next().text('숫자만 입력해주세요.');
+      }
+    }
+  }
+</script>
+
+<script>
+
+  $("#registBtn").on('click', function (){
+
+    if(document.getElementById('itemName').value==''){
+      document.getElementById('itemName').focus();
+      return false;
+    }
+    if(document.getElementById('itemStandard').value==''){
+      document.getElementById('itemStandard').focus();
+      return false;
+    }
+    if(document.getElementById('itemMake').value==''){
+      document.getElementById('itemMake').focus();
+      return false;
+    }
+    if(document.getElementById('itemAmount').value==''){
+      document.getElementById('itemAmount').focus();
+      return false;
+    }
+    if(document.getElementById('itemPurchase').value==''){
+      document.getElementById('itemPurchase').focus();
+      return false;
+    }
+    if(document.getElementById('itemSales').value==''){
+      document.getElementById('itemSales').focus();
+      return false;
+    }
+    if(isNaN(document.getElementById('itemAmount').value)){
+      document.getElementById('itemAmount').focus();
+      return false;
+    }
+    if(isNaN(document.getElementById('itemPurchase').value)){
+      document.getElementById('itemPurchase').focus();
+      return false;
+    }
+    if(isNaN(document.getElementById('itemSales').value)){
+      document.getElementById('itemSales').focus();
+      return false;
+    }
+
+    if(confirm('등록하시겠습니까?')){
+      $("#formItemRegist").submit();
+    } else{
+      return false;
+    }
   });
 </script>
 

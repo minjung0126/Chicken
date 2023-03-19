@@ -8,18 +8,17 @@
   <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<div id="layerPopRegist" style="display:none; width: 70%; height: 770px; position: absolute; z-index: 1;">
+<div id="layerPop" style="display:none; width: 70%; height: 770px; position: absolute; z-index: 1;">
   <div class="bg-white rounded-lg d-block d-sm-flex" style="height: max-content;">
     <div class="tab-content p-4 px-md-5" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
         <h3 class="mb-4">상품 등록</h3>
-        <form method="post" action="/item/admin/regist" enctype="multipart/form-data">
+        <form method="post" action="/item/admin/regist" enctype="multipart/form-data" id="formItemRegist">
           <div class="row">
             <div class="col-12 mb-3">
               <div class="border d-flex flex-wrap justify-content-center align-content-center" style="width:100px; height: 100px; border-radius: 5px;">
                 <label class="input-file-button-regist" for="input-file-regist" style="margin-bottom: 0;">
-                  <i class="fa fa-file-image-o fa-3x" aria-hidden="true" style="cursor: pointer; color: #ffe8a4;"></i>
-                  <img id="View" class="rounded d-none" src="#" width="100px" height="100px" style="margin-top: 1px;">
+                  <img id="view" class="rounded d-none" src="#" width="100px" height="100px" style="margin-top: 1px; cursor: pointer;">
                 </label>
                 <input class="form-control" type="file" id="input-file-regist" name="file" style="display:none;">
               </div>
@@ -27,7 +26,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label class="mb-2">상품명</label>
-                <input type="text" name="itemName" class="form-control" value="" required>
+                <input type="text" id="itemName" name="itemName" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
             <div class="col-md-6">
@@ -51,19 +51,22 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="mb-2">판매규격</label>
-                <input type="text" name="itemStandard" class="form-control" value="" required>
+                <input type="text" id="itemStandard" name="itemStandard" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label class="mb-2">제조사</label>
-                <input type="text" name="itemMake" class="form-control" value="" required>
+                <input type="text" id="itemMake" name="itemMake" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label class="mb-2">재고량</label>
-                <input type="text" name="itemAmount" class="form-control" value="" required>
+                <input type="text" id="itemAmount" name="itemAmount" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
             <div class="col-md-6">
@@ -78,24 +81,26 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="mb-2">매입 단가</label>
-                <input type="text" name="itemPurchase" class="form-control" value="" required>
+                <input type="text" id="itemPurchase" name="itemPurchase" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label class="mb-2">매출 단가</label>
-                <input type="text" name="itemSales" class="form-control" value="" required>
+                <input type="text" id="itemSales" name="itemSales" class="form-control" value="" oninput="inputClick(this.id)" required>
+                <div class="invalid-feedback">필수 정보입니다.</div>
               </div>
             </div>
           </div>
           <div class="mt-3 mb-2 d-flex justify-content-center">
-            <button id="registBtn" class="btn btn-warning me-1" type="submit" style="color: #fff;">등록</button>
+            <button id="registBtn" class="btn btn-warning me-1" type="button" style="color: #fff;">등록</button>
           </div>
         </form>
 
         <div class="close-btn">
-          <a href="#" onclick="closeLayer('layerPopRegist')" class="close">
-            <i class="fa fa-times close" onclick="closeLayer('layerPopRegist')" style="color: #000;"></i>
+          <a onclick="closeLayer('layerPop')" class="close">
+            <i class="fa fa-times close" style="color: #000;"></i>
           </a>
         </div>
       </div>
