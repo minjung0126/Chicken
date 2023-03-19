@@ -164,14 +164,14 @@
                 <div class="pagingArea" align="center">
                     <!-- 맨 앞으로 이동 버튼 -->
                     <button class="btn btn-light mx-1" style="cursor:pointer; background: #ccc; color: #fff;"
-                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.startPage}} + '&searchCondition=' + @{${ selectCriteria.searchCondition }} + '&startDate=' + @{${ selectCriteria.startDate }} + '&endDate=' + @{${ selectCriteria.endDate }} + '&searchValue=' + @{${ selectCriteria.searchValue }} + '\''"
                             th:disabled="${selectCriteria.pageNo == 1}"
                     >
                         <<
                     </button>
                     <!-- 이전 페이지 버튼 -->
                     <button class="btn btn-light" style="cursor:pointer; background: #ccc; color: #fff;"
-                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '&searchCondition=' + @{${ selectCriteria.searchCondition }} + '&startDate=' + @{${ selectCriteria.startDate }} + '&endDate=' + @{${ selectCriteria.endDate }} + '&searchValue=' + @{${ selectCriteria.searchValue }} + '\''"
                             th:disabled="${selectCriteria.pageNo == 1}"
                     >
                         <
@@ -180,21 +180,21 @@
                     <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
                         <button class="btn btn-warning mx-1" style="cursor:pointer; color: #fff;"
                                 th:text="${ page }"
-                                th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${page}} + '\''"
+                                th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${page}} + '&searchCondition=' + @{${ selectCriteria.searchCondition }} + '&startDate=' + @{${ selectCriteria.startDate }} + '&endDate=' + @{${ selectCriteria.endDate }} + '&searchValue=' + @{${ selectCriteria.searchValue }} + '\''"
                                 th:disabled="${ selectCriteria.pageNo eq page }">
                         </button>
                     </th:block>
 
                     <!-- 다음 페이지 버튼 -->
                     <button class="btn btn-light mx-1" style="cursor:pointer; background: #ccc; color: #fff;"
-                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '&searchCondition=' + @{${ selectCriteria.searchCondition }} + '&startDate=' + @{${ selectCriteria.startDate }} + '&endDate=' + @{${ selectCriteria.endDate }} + '&searchValue=' + @{${ selectCriteria.searchValue }} + '\''"
                             th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                     >
                         >
                     </button>
                     <!-- 마지막 페이지로 이동 버튼 -->
                     <button class="btn btn-light mx-1" style="cursor:pointer; background: #ccc; color: #fff;"
-                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                            th:onclick="'location.href=\'/storeReceive/user/list?currentPage='+ @{${selectCriteria.maxPage} + '&searchCondition=' + @{${ selectCriteria.searchCondition }} + '&startDate=' + @{${ selectCriteria.startDate }} + '&endDate=' + @{${ selectCriteria.endDate }} + '&searchValue=' + @{${ selectCriteria.searchValue }}} + '\''"
                             th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                     >
                         >>
@@ -246,9 +246,11 @@
             let start = moment($('#startDate').val());
             let end = moment();
 
-            if(new URL(location.href).searchParams.has('startDate')){
-                start = moment(new URL(location.href).searchParams.get('startDate'));
-                end = moment(new URL(location.href).searchParams.get('endDate'));
+            let urlDate = new URL(location.href).searchParams;
+
+            if(urlDate.has('startDate') && urlDate.get('startDate') != ''){
+                start = moment(urlDate.get('startDate'));
+                end = moment(urlDate.get('endDate'));
             }
 
             function cb(start, end) {

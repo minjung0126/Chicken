@@ -70,12 +70,7 @@ public class ReceiveController {
         log.info("[ReceiveController] totalBoardCount : " + totalCount);
 
         /* 한 페이지에 보여 줄 게시물 수 */
-        int limit;		//얘도 파라미터로 전달받아도 된다.
-        if(searchCondition != null && !"".equals(searchCondition)) {
-            limit = totalCount;
-        } else{
-            limit = 10;
-        }
+        int limit = 10;		//얘도 파라미터로 전달받아도 된다.
 
         /* 한 번에 보여질 페이징 버튼의 갯수 */
         int buttonAmount = 5;

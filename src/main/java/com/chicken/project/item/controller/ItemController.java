@@ -65,12 +65,7 @@ public class ItemController {
         int totalCount = itemService.selectTotalCount(searchMap);
         log.info("[itemController] totalBoardCount : " + totalCount);
 
-        int limit;
-        if(searchCondition != null && !"".equals(searchCondition)) {
-            limit = totalCount;
-        } else{
-            limit = 10;
-        }
+        int limit = 10;
 
         int buttonAmount = 5;
 
