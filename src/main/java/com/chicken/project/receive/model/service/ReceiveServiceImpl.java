@@ -123,4 +123,10 @@ public class ReceiveServiceImpl implements ReceiveService{
             throw new ReceiveUpdateException("재고 수정에 실패하셨습니다.");
         }
     }
+
+    @Override
+    public String selectMinRecDate() {
+
+        return receiveMapper.selectMinRecDate();
+    }
 }

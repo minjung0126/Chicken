@@ -40,4 +40,6 @@ public interface ReceiveMapper {
     List<ReceiveOfficeDTO> selectMaxCode();
 
     int updateItem(HashMap<String, Object> registHashMap);
+
+    String selectMinRecDate();
 }

@@ -33,4 +33,6 @@ public interface StoreReceiveMapper {
     int updateOneItem(Map<String, Object> recList);
 
     int insertOneItem(Map<String, Object> recList);
+
+    String selectMinOrderDate(String storeName);
 }

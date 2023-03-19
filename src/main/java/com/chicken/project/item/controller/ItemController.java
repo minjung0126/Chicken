@@ -94,7 +94,7 @@ public class ItemController {
         List<ItemCategoryDTO> itemCategoryList = itemService.selectCategory();
 
         mv.addObject("itemList", itemList);
-            mv.addObject("selectCriteria", selectCriteria);
+        mv.addObject("selectCriteria", selectCriteria);
         log.info("[itemController] SelectCriteria : " + selectCriteria);
 
         mv.addObject("itemPreCategoryList", itemPreCategoryList);

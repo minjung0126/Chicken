@@ -39,4 +39,6 @@ public interface StoreReceiveService {
 
     @Transactional
     void insertOneItem(Map<String, Object> recList) throws ReceiveInsertException;
+
+    String selectMinOrderDate(String storeName);
 }

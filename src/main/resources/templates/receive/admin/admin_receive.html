@@ -55,7 +55,7 @@
                                     <span class="date" style="margin-left: 7px;">
                                         <!-- 날짜 입력한 값 들어감 -->
                                     </span>
-                                    <input type="hidden" id="startDate" name="startDate">
+                                    <input type="hidden" id="startDate" name="startDate" th:value="${ minRecDate }">
                                     <input type="hidden" id="endDate" name="endDate">
                                 </div>
 
@@ -63,7 +63,7 @@
                                 <!-- <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">
                                   <option value="date">상품명</option>
                                 </select> -->
-                                <input class="form-control me-2 col-3" type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력해주세요.">
+                                <input class="form-control me-2 col-3" type="text" name="searchValue" id="searchValue" th:value="${ selectCriteria.getSearchValue() }" placeholder="검색어를 입력해주세요.">
                                 <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>
                             </div>
                             <div class="col-12 d-flex justify-content-end">
@@ -308,8 +308,13 @@
 
         $(function () {
 
-            let start = moment();
+            let start = moment($('#startDate').val());
             let end = moment();
+
+            if(new URL(location.href).searchParams.has('startDate')){
+                start = moment(new URL(location.href).searchParams.get('startDate'));
+                end = moment(new URL(location.href).searchParams.get('endDate'));
+            }
 
             function cb(start, end) {
                 jb('#reportrange span').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));

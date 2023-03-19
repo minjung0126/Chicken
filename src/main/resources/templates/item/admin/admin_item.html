@@ -56,7 +56,7 @@
           <h3>품목 관리</h3>
           <br>
           <div class="col-6">
-            <form th:action="@{ /templates/item/admin/list }">
+            <form th:action="@{ /item/admin/list }">
               <div class="input-group mb-3">
                 <select class="form-select" id="searchCondition" name="searchCondition" style="max-width: max-content;">
                   <option value="itemName" th:selected="${ selectCriteria.getSearchCondition() == 'itemName'}">상품명</option>

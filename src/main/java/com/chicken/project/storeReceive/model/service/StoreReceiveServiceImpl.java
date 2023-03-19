@@ -124,4 +124,10 @@ public class StoreReceiveServiceImpl implements StoreReceiveService{
             throw new ReceiveInsertException("품목 등록에 실패하셨습니다.");
         }
     }
+
+    @Override
+    public String selectMinOrderDate(String storeName) {
+
+        return storeReceiveMapper.selectMinOrderDate(storeName);
+    }
 }

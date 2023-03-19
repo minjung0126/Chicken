@@ -94,9 +94,13 @@ public class ReceiveController {
         /* 조회해 온다 */
         List<ReceiveOfficeDTO> receiveOfficeList = receiveService.selectAllReceive(selectCriteria);
 
+        String minRecDate = receiveService.selectMinRecDate();
+
         log.info("[ReceiveController] receiveOfficeList : " + receiveOfficeList);
+        log.info("minRecDate :" + minRecDate);
 
         mv.addObject("receiveOfficeList", receiveOfficeList);
+        mv.addObject("minRecDate", minRecDate);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("[ReceiveController] SelectCriteria : " + selectCriteria);
 

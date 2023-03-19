@@ -41,4 +41,7 @@ public interface ReceiveService {
 
     @Transactional
     void updateItem(HashMap<String, Object> registHashMap) throws ReceiveUpdateException;
+
+
+    String selectMinRecDate();
 }

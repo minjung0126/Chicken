@@ -117,7 +117,10 @@ public class StoreReceiveController {
 
         log.info("[ReceiveController] releaseList : " + releaseList);
 
+        String minOrderDate = storeReceiveService.selectMinOrderDate(storeName);
+
         mv.addObject("releaseList", releaseList);
+        mv.addObject("minOrderDate", minOrderDate);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("[ReceiveController] SelectCriteria : " + selectCriteria);
 

@@ -12,6 +12,7 @@
         <result property="sumRecTotalMoney" column="sumRecTotalMoney"/>
         <result property="stringRecDate" column="stringRecDate"/>
         <result property="maxRecCode" column="maxRecCode"/>
+        <result property="minRecDate" column="minRecDate"/>
         <result property="rNum" column="RNUM"/>
         <association property="receiveOfficeItem" resultMap="receiveOfficeItemResultMap"/>
         <association property="itemInfo" resultMap="itemInfoResultMap"/>
@@ -262,4 +263,8 @@ ORDER BY 1 ASC
                                 + I.ITEM_AMOUNT
         WHERE I.ITEM_NO = #{ itemNo }
     </update>
+    <select id="selectMinRecDate" resultType="string">
+        SELECT TO_CHAR(MIN(REC_DATE), 'YYYY-MM-DD') minRecDate
+          FROM RECEIVE_OFFICE
+    </select>
 </mapper>

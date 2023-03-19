@@ -421,4 +421,14 @@ FROM (SELECT
         )
     </insert>
 
+    <select id="selectMinOrderDate" resultType="string">
+        SELECT
+               MIN(SO.ORDER_DATE)
+          FROM RELEASE R
+          JOIN RELEASE_ITEM RI ON (RI.REL_CODE = R.REL_CODE)
+          LEFT JOIN RECEIVE_STORE RS ON (RI.ORDER_NO = RS.ORDER_NO)
+          JOIN STORE_ORDER SO ON (RI.ORDER_NO = SO.ORDER_NO)
+         WHERE R.STORE_NAME = #{ storeName }
+    </select>
+
 </mapper>

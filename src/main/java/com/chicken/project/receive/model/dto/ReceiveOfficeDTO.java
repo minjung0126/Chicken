@@ -1,6 +1,5 @@
 package com.chicken.project.receive.model.dto;
 
-import com.chicken.project.receive.model.dto.RecEmployeeDTO;
 import com.chicken.project.item.model.dto.ItemCategoryDTO;
 import com.chicken.project.item.model.dto.ItemFileDTO;
 import com.chicken.project.item.model.dto.ItemInfoDTO;
@@ -18,8 +17,8 @@ public class ReceiveOfficeDTO {
     private String stringRecDate; // 입고일 ('yyyy-dd-mm')
     private String empName;
     private String maxRecCode;
+    private String minRecDate;
     private int rNum;
-
     private ReceiveOfficeItemDTO receiveOfficeItem;
     private ItemInfoDTO itemInfo;
     private ItemCategoryDTO itemCategory;
@@ -29,7 +28,7 @@ public class ReceiveOfficeDTO {
     public ReceiveOfficeDTO() {
     }
 
-    public ReceiveOfficeDTO(String recCode, Date recDate, String empId, int sumRecTotalAmount, int countRecCode, String sumRecTotalMoney, String stringRecDate, String empName, String maxRecCode, int rNum, ReceiveOfficeItemDTO receiveOfficeItem, ItemInfoDTO itemInfo, ItemCategoryDTO itemCategory, ItemFileDTO itemFile, RecEmployeeDTO employee) {
+    public ReceiveOfficeDTO(String recCode, Date recDate, String empId, int sumRecTotalAmount, int countRecCode, String sumRecTotalMoney, String stringRecDate, String empName, String maxRecCode, String minRecDate, int rNum, ReceiveOfficeItemDTO receiveOfficeItem, ItemInfoDTO itemInfo, ItemCategoryDTO itemCategory, ItemFileDTO itemFile, RecEmployeeDTO employee) {
         this.recCode = recCode;
         this.recDate = recDate;
         this.empId = empId;
@@ -39,6 +38,7 @@ public class ReceiveOfficeDTO {
         this.stringRecDate = stringRecDate;
         this.empName = empName;
         this.maxRecCode = maxRecCode;
+        this.minRecDate = minRecDate;
         this.rNum = rNum;
         this.receiveOfficeItem = receiveOfficeItem;
         this.itemInfo = itemInfo;
@@ -119,6 +119,14 @@ public class ReceiveOfficeDTO {
         this.maxRecCode = maxRecCode;
     }
 
+    public String getMinRecDate() {
+        return minRecDate;
+    }
+
+    public void setMinRecDate(String minRecDate) {
+        this.minRecDate = minRecDate;
+    }
+
     public int getrNum() {
         return rNum;
     }
@@ -179,6 +187,7 @@ public class ReceiveOfficeDTO {
                 ", stringRecDate='" + stringRecDate + '\'' +
                 ", empName='" + empName + '\'' +
                 ", maxRecCode='" + maxRecCode + '\'' +
+                ", minRecDate='" + minRecDate + '\'' +
                 ", rNum=" + rNum +
                 ", receiveOfficeItem=" + receiveOfficeItem +
                 ", itemInfo=" + itemInfo +
