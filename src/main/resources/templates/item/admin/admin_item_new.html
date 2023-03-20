@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-6">
               <label for="preCate" class="form-label">1차 카테고리</label>
-              <select class="form-select" id="preCate">
+              <select class="form-select" name="preCategory" id="preCate">
                 <div th:each="preCategory : ${ itemPreCategoryList }">
                   <option th:text="${ preCategory.categoryName }" th:value="${ preCategory.categoryNo }">식재료</option>
                 </div>

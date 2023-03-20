@@ -315,6 +315,9 @@
 </section>
 <!-- 카테고리 분류 -->
 <script th:inline="javascript">
+
+    let imgSrc = $('#view').attr('src');
+
     $('#preCate').on("change", function (){
 
         let preCateNo = $(this).find("option:selected").val();
@@ -333,6 +336,11 @@
 
         $("#itemForm")[0].reset();
         $(".invalid-feedback").css('display', 'none');
+        $('#view').attr('src', imgSrc);
+
+        $('#view').on("error", function () {
+            $(this).attr("src", "/images/logo.png");
+        });
 
         let preCateNo = $('#preCate').find("option:selected").val();
         $('#cate').children().remove();
