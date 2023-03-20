@@ -19,10 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/item")
@@ -84,7 +81,6 @@ public class ItemController {
         log.info("[itemController] itemList : " + itemList);
 
         /* 신규 등록 카테고리 옵션 조회 */
-
         List<ItemCategoryDTO> itemPreCategoryList = itemService.selectPreCategory();
         List<ItemCategoryDTO> itemCategoryList = itemService.selectCategory();
 

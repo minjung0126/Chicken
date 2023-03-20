@@ -42,7 +42,7 @@
               <div class="form-group">
                 <label for="cate" class="form-label">2차 카테고리</label>
                 <select class="form-select" name="categoryNo" id="cate">
-                  <div th:each="category : ${ itemCategoryList }">
+                  <div th:each="category : ${ itemCategoryList }" th:if="${ category.preCategory == 1}">
                     <option th:text="${ category.categoryName }" th:value="${ category.categoryNo }">식재료</option>
                   </div>
                 </select>

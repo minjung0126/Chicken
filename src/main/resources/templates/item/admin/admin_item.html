@@ -283,7 +283,8 @@
 </script>
 
 <!-- 레이어 팝업 -->
-<script>
+<script th:inline="javascript">
+  <!-- 레이어 열기 -->
   function openLayer(IdName, tpos, lpos){
     var fileImage = document.createElement('i');
     fileImage.className = 'fa fa-file-image-o fa-3x p-4';
@@ -296,10 +297,24 @@
     pop.style.top = tpos + "%";
     pop.style.left = lpos + "%";
   }
+  <!-- 레이어 닫기 -->
   function closeLayer(IdName){
     var pop = document.getElementById(IdName);
     pop.style.display = "none";
+
+    <!-- form 데이터 초기화 -->
     $('#formItemRegist')[0].reset();
+
+    <!-- 카테고리 초기화 -->
+    $('#cate').children().remove();
+    [# th:each="category, stat : ${itemCategoryList}"]
+    if([[${itemCategoryList[stat.count - 1].preCategory}]] == 1){
+      var option = $("<option>"+[[${itemCategoryList[stat.count - 1].categoryName}]]+"</option>");
+      $('#cate').append(option);
+    }
+    [/]
+
+    <!-- 파일 이미지 초기화 -->
     $('#input-file-regist').val("");
     $('.input-file-button-regist #view').attr('src', '#');
     $('.input-file-button-regist #view').addClass('d-none');
@@ -433,7 +448,6 @@
 </script>
 
 <script>
-
   $("#registBtn").on('click', function (){
 
     if(document.getElementById('itemName').value==''){
@@ -481,27 +495,21 @@
   });
 </script>
 
-<!-- 상품 상세 페이지 팝업 띄우기 -->
-<!--<script type="text/javascript">-->
-<!--  function showItemDetail() {-->
+<!-- 카테고리 분류 -->
+<script th:inline="javascript">
+$('#preCate').on("change", function (){
 
-<!--    //창 크기 지정-->
-<!--    var width = 1200;-->
-<!--    var height = 800;-->
+  let preCateNo = $(this).find("option:selected").val();
+  $('#cate').children().remove();
 
-<!--    //pc화면기준 가운데 정렬-->
-<!--    var left = (window.screen.width / 2) - (width/2);-->
-<!--    var top = (window.screen.height / 4);-->
+  [# th:each="category, stat : ${itemCategoryList}"]
+  if([[${itemCategoryList[stat.count - 1].preCategory}]] == preCateNo){
+    var option = $("<option value='[[${itemCategoryList[stat.count - 1].categoryNo}]]'>"+[[${itemCategoryList[stat.count - 1].categoryName}]]+"</option>");
+    $('#cate').append(option);
+  }
+  [/]
 
-<!--    //윈도우 속성 지정-->
-<!--    var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';-->
-
-<!--    //연결하고싶은url-->
-<!--    const url = "admin_item_detail.html";-->
-
-<!--    //등록된 url 및 window 속성 기준으로 팝업창을 연다.-->
-<!--    window.open(url, "hello popup", windowStatus);-->
-<!--  }-->
-<!--</script>-->
+});
+</script>
 </body>
 </html>

@@ -70,8 +70,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="preCategory" class="form-label">1차 카테고리</label>
-                                <select class="form-select" id="preCategory" name="preCategory">
+                                <label for="preCate" class="form-label">1차 카테고리</label>
+                                <select class="form-select" id="preCate" name="preCategory">
                                     <div th:each="preCategory : ${ itemPreCategoryList }">
                                         <option th:text="${ preCategory.categoryName }" th:value="${ preCategory.categoryNo }" th:selected="${ preCategory.categoryNo } == ${ item.preCategory }">식재료</option>
                                     </div>
@@ -79,9 +79,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="categoryNo" class="form-label">2차 카테고리</label>
-                                    <select class="form-select" id="categoryNo" name="categoryNo">
-                                        <div th:each="category : ${ itemCategoryList }">
+                                    <label for="cate" class="form-label">2차 카테고리</label>
+                                    <select class="form-select" id="cate" name="categoryNo">
+                                        <div th:each="category : ${ itemCategoryList }" th:if="${ item.preCategory } == ${ category.preCategory }">
                                             <option th:text="${ category.categoryName }" th:value="${ category.categoryNo }" th:selected="${ category.categoryNo } == ${ item.categoryNo }">식재료</option>
                                         </div>
                                     </select>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="mt-3 d-flex justify-content-center">
                             <button class="btn btn-warning me-1" id="btnModify" style="color: #fff;" type="button">수정</button>
-                            <button class="btn btn-light ms-1" type="reset">취소</button>
+                            <button class="btn btn-light ms-1" id="btnCancel" type="button">취소</button>
                         </div>
                     </form>
                 </div>
@@ -313,6 +313,45 @@
         </div>
     </div>
 </section>
+<!-- 카테고리 분류 -->
+<script th:inline="javascript">
+    $('#preCate').on("change", function (){
+
+        let preCateNo = $(this).find("option:selected").val();
+        $('#cate').children().remove();
+
+        [# th:each="category, stat : ${itemCategoryList}"]
+        if([[${itemCategoryList[stat.count - 1].preCategory}]] == preCateNo){
+            var option = $("<option value='[[${itemCategoryList[stat.count - 1].categoryNo}]]'>"+[[${itemCategoryList[stat.count - 1].categoryName}]]+"</option>");
+            $('#cate').append(option);
+        }
+        [/]
+
+    });
+
+    $("#btnCancel").on('click', function (){
+
+        $("#itemForm")[0].reset();
+        $(".invalid-feedback").css('display', 'none');
+
+        let preCateNo = $('#preCate').find("option:selected").val();
+        $('#cate').children().remove();
+
+        [# th:each="category, stat : ${itemCategoryList}"]
+        if([[${itemCategoryList[stat.count - 1].preCategory}]] == preCateNo){
+            var option = $("<option value='[[${itemCategoryList[stat.count - 1].categoryNo}]]'>"+[[${itemCategoryList[stat.count - 1].categoryName}]]+"</option>");
+            $('#cate').append(option);
+        }
+        [/]
+
+        for(let i = 0; i < $('#cate').children().length; i++){
+            if([[${item.categoryNo}]] == $('#cate').children().get(i).value){
+                $('#cate').children().get(i).selected = true;
+            }
+        }
+
+    });
+</script>
 <script>
     $(function() {
         $("#input-file-detail").on('change', function(){
@@ -383,6 +422,10 @@
             return false;
         }
     });
+
+
+
+
 
     function closeSelf(f) {
         //f.submit();
