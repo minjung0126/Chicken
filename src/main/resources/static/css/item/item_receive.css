@@ -178,13 +178,10 @@ a:hover{
     border: 3px solid #fff;
     box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
 }
-/* .row {
-  display: inline;
-  margin: 27px 0 0 17px;
+.invalid-feedback {
+    width: max-content;
+    position: absolute;
+    margin-left: 0.2rem;
+    font-size: .80em;
+    color: #dc3545;
 }
-.row-md-4{
-  margin-bottom: 15px;
-}
-.p-4{
-  background-color: #f8f8f8;
-} */

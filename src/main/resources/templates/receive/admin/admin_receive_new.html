@@ -79,7 +79,7 @@
                             <button class="btn btn-warning me-1" type="button" style="color: #fff;" onclick='getCheckboxValue()'>품목 선택</button>
                         </div>
                         <div style="width:100%; height: 600px; overflow:auto;">
-                            <table class="table" width="100%">
+                            <table class="table" width="100%" id="receiveNewTable">
                                 <thead>
                                 <tr style="top: 0; position:sticky; background: #fff; z-index: 999;">
                                     <th>
@@ -287,6 +287,20 @@
         $("#btnSelectItem").click(function(){
             location.href = 'javascript:showSelectItem()';
         });
+    });
+</script>
+
+<!-- 테이블 행 클릭 시 체크 박스 선택 -->
+<script>
+    $(document).ready(function(){
+
+        $("#receiveNewTable tr").click(function () {
+            // 현재 클릭된 Row(<tr>)
+            console.log("click");
+            var checkbox = $(this).find('td:first-child :checkbox');
+            checkbox.attr('checked', !checkbox.is(':checked'));
+        });
+
     });
 </script>
 
@@ -687,7 +701,9 @@
 <!--</script>-->
 <script type="text/javascript">
     $(document).ready(function() {
+
         $("#cbx_chkAll1").click(function() {
+
             if($("#cbx_chkAll1").is(":checked")) $("input[name=chk1]").prop("checked", true);
             else $("input[name=chk1]").prop("checked", false);
         });
