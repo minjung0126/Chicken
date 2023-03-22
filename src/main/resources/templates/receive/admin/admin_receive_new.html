@@ -185,7 +185,7 @@
                             <td class="receiveItemNo" th:text="${ receive.itemNo }" th:value="${ receive.itemNo }">100001</td>
                             <td th:text="${ receive.itemStandard }">ea</td>
                             <td th:text="${ #numbers.formatInteger(receive.itemAmount, 0, 'COMMA') }">1000</td>
-                            <td align="center"><input type="number" class="form-control col-10 receiveAmount" id="receiveAmount" name="receiveAmount" min="1" max="1000" value="1" onchange="inputValueChange(this);"></td>
+                            <td align="center"><input type="number" class="form-control col-10 receiveAmount" id="receiveAmount" name="receiveAmount" min="1" max="1000" value="1" onchange="inputValueChange(this);" onkeydown="inputNumber(this);"></td>
                             <td th:text="|${ #numbers.formatInteger(receive.itemPurchase, 0, 'COMMA') }원|" id="itemPurchase" class="itemPurchase">4,500</td>
                             <td id="receiveItemMoney" class="receiveItemMoney" th:value="${ receive.itemPurchase}" th:text="|${ #numbers.formatInteger(receive.itemPurchase, 0, 'COMMA') }원|"></td>
                             <td><button class="btn btn-light" type="button" style="color:#fff; background-color: #ccc;" onclick="rowDel(this);">삭제</button></td>
@@ -324,6 +324,16 @@
 <!--        })-->
 <!--    }-->
 <!--</script>-->
+<script>
+    function inputNumber(e){
+        var code = e.keyCode;
+        if(code > 47 && code < 58){
+            return;
+        }
+        e.preventDefault();
+        alert("숫자만 입력해주세요.");
+    }
+</script>
 
 <!-- 선택된 체크박스 값 가져오기 (추가) -->
 <script>
