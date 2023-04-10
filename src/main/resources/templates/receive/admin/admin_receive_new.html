@@ -7,7 +7,6 @@
 
     <title>chicken stock</title>
     <link rel="shortcut icon" th:href="@{ /images/logo.png }" type="image/x-icon">
-
     <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}"/>
     <!-- table css -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -23,7 +22,6 @@
 </head>
 <body>
 <div class="wrap">
-
     <!-- S: header -->
     <div th:include="common/adminHeader.html"></div>
     <!-- S: header -->
@@ -51,29 +49,6 @@
                         <div id="result2"></div>
                     </div>
                     <div id="layerPop" class="p-5" style="display:none; width: 75%; height: 800px; position: absolute; z-index: 1; overflow: hidden;">
-                        <!-- <h2 class="mb-5">품목 관리</h2> -->
-                        <!-- <h3 class="mb-4">품목 선택</h3> -->
-                        <form method="get" action="/admin/list/regist">
-                            <!--                            <div class="input-group mb-3 col-12 float-start">-->
-                            <!--                                <select id="searchCondition" name="searchCondition" class="form-control col-2" style="max-width: max-content;">-->
-                            <!--                                    <option value="itemName">상품명</option>-->
-                            <!--                                    <option value="category">카테고리</option>-->
-                            <!--                                    <option value="make">제조사</option>-->
-                            <!--                                </select>-->
-
-                            <!--                                &lt;!&ndash; <button class="btn btn-light px-3" type="button" disabled></button> &ndash;&gt;-->
-                            <!--                                &lt;!&ndash; <select id="searchCondition" class="form-control col-1" style="max-width: max-content;">-->
-                            <!--                                  <option value="date">상품명</option>-->
-                            <!--                                </select> &ndash;&gt;-->
-                            <!--                                <input class="form-control me-2 col-3 searchValue" id="searchValue" name="searchValue" type="text" placeholder="검색어를 입력해주세요.">-->
-                            <!--                                <button class="btn btn-warning" type="submit" style="color:#fff">검색</button>-->
-
-                            <!--                                <div class="form-check mx-4 d-flex flex-wrap align-content-center">-->
-                            <!--                                    <input type="checkbox" class="form-check-input" id="check" name="soldout" style="margin-top: 14px">-->
-                            <!--                                    <label class="form-check-label" for="check">품절상품만</label>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                        </form>
                         <div class="my-4 d-flex justify-content-end">
                             <input type="hidden" name="itemNoList" id="result">
                             <button class="btn btn-warning me-1" type="button" style="color: #fff;" onclick='getCheckboxValue()'>품목 선택</button>
@@ -133,18 +108,12 @@
                             </table>
                         </div>
 
-
-
-
                         <div class="close-btn">
                             <a href="#" onclick="closeLayer('layerPop')" class="close">
-                                <!-- <img onclick="closeLayer('layerPop')" class="close" src="../assets/images/x.png" alt="" width="18" height="18"> -->
                                 <i class="fa fa-times close" onclick="closeLayer('layerPop')"></i>
                             </a>
                         </div>
                     </div>
-
-
                     <table class="table" id="receiveTable">
                         <thead>
                         <tr>
@@ -208,11 +177,9 @@
                     <button class="btn btn-light" type="button" style="color:#fff; background-color: #ccc;" onclick="location.href='/receive/admin/list'">취소</button>
                     <button class="btn btn-warning mx-2" type="button" style="color:#fff;" onclick="insertReceive()">입고</button>
                 </div>
-
             </div>
         </div>
         <!-- E: main layout -->
-
     </div>
     <!-- E: container -->
 </div>
@@ -221,121 +188,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<!-- datepicker js -->
-<script src="../assets/js/daterange.js"></script>
-
-<!-- 상품 상세 페이지 팝업 띄우기 -->
-<script type="text/javascript">
-    function showItemDetail() {
-
-        //창 크기 지정
-        var width = 1200;
-        var height = 800;
-
-        //pc화면기준 가운데 정렬
-        var left = (window.screen.width / 2) - (width/2);
-        var top = (window.screen.height / 4);
-
-        //윈도우 속성 지정
-        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-
-        //연결하고싶은url
-        const url = "../admin_item_detail.html";
-
-        //등록된 url 및 window 속성 기준으로 팝업창을 연다.
-        window.open(url, "hello popup", windowStatus);
-    }
-</script>
-
-<!-- 상품 신규 등록 팝업 띄우기 -->
-<script type="text/javascript">
-    function showSelectItem() {
-
-        //창 크기 지정
-        var width = 1200;
-        var height = 800;
-
-        //pc화면기준 가운데 정렬
-        var left = (window.screen.width / 2) - (width/2);
-        var top = (window.screen.height / 4);
-
-        //윈도우 속성 지정
-        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-
-        //연결하고싶은url
-        const url = "admin_receive_item.html";
-
-        //등록된 url 및 window 속성 기준으로 팝업창을 연다.
-        window.open(url, "hello popup", windowStatus);
-    }
-</script>
-
-<!-- 팝업으로 이동 -->
-<script>
-
-    var form = document.getElementsByClassName('form-check');
-
-    $(document).ready(function(){
-        // 1. 상품 상세 조회
-        // $("tbody tr").click(function(){
-        //       location.href = 'javascript:showItemDetail()';
-        // });
-        // $("tbody tr input").click(function(event){
-        //   event.stopPropagation();
-        // });
-        // 2. 품목 조회
-        $("#btnSelectItem").click(function(){
-            location.href = 'javascript:showSelectItem()';
-        });
-    });
-</script>
-
-<!-- 테이블 행 클릭 시 체크 박스 선택 -->
-<script>
-    $(document).ready(function(){
-
-        $("#receiveNewTable tr").click(function () {
-            // 현재 클릭된 Row(<tr>)
-            console.log("click");
-            var checkbox = $(this).find('td:first-child :checkbox');
-            checkbox.attr('checked', !checkbox.is(':checked'));
-        });
-
-    });
-</script>
-
-<!--&lt;!&ndash; 체크 박스 전체 선택 &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-<!--    function selectAll(selectAll)  {-->
-<!--        const checkboxes = document.getElementsByName('option');-->
-
-<!--        checkboxes.forEach((checkbox) => {-->
-<!--            checkbox.checked = selectAll.checked;-->
-<!--        })-->
-<!--    }-->
-<!--</script>-->
-
-<!--<script type="text/javascript">-->
-<!--    function selectAll2(selectAll)  {-->
-<!--        const checkboxes = document.getElementsByName('option2');-->
-
-<!--        checkboxes.forEach((checkbox) => {-->
-<!--            checkbox.checked = selectAll.checked;-->
-<!--        })-->
-<!--    }-->
-<!--</script>-->
-<script>
-    function inputNumber(e){
-        var code = e.keyCode;
-        if(code > 47 && code < 58){
-            return;
-        }
-        e.preventDefault();
-        alert("숫자만 입력해주세요.");
-    }
-</script>
-
-<!-- 선택된 체크박스 값 가져오기 (추가) -->
+<!-- 선택한 체크박스 값 가져오기 (입고할 품목 추가) -->
 <script>
     function getCheckboxValue()  {
         // 선택된 목록 가져오기
@@ -351,11 +204,10 @@
             result += el.value + ' ';
         });
 
-        // 출력
         document.getElementById('result').innerText
             = itemNoVal;
 
-        // alert(itemNoVal);
+        console.log(itemNoVal);
         closeLayer('layerPop');
 
         let form = document.createElement('form');
@@ -369,87 +221,10 @@
         form.setAttribute('action', '/receive/admin/list/regist');
         document.body.appendChild(form);
         form.submit();
-
-        // $.ajax({
-        //             url: "receive/admin/list/new",
-        //             // dataType: "json",
-        //             // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        //             type: "post",
-        //             data: {
-        //                 itemNo: itemNoVal
-        //             },
-        //             success: function (data) {
-        //                 console.log("success", data);
-        //             },
-        //             error: function () {
-        //                 alert("error");
-        //             }
-        //         });
-
-        // location.href = "/receive/admin/list/new?itemNo=" + arr;
-
-
     }
 </script>
 
-<!-- 선택한 체크박스 값 가져오기 (삭제) -->
-<!--<script>-->
-<!--    function getCheckboxValue()  {-->
-<!--        // 선택된 목록 가져오기-->
-<!--        const query = 'input[name="option2"]:checked';-->
-<!--        const selectedEls =-->
-<!--            document.querySelectorAll(query);-->
-
-<!--        // 선택된 목록에서 value 찾기-->
-<!--        let result = '';-->
-<!--        let itemNoVal = [];-->
-<!--        selectedEls.forEach((el) => {-->
-<!--            itemNoVal[itemNoVal.length] = el.value;-->
-<!--            result += el.value + ' ';-->
-<!--        });-->
-
-<!--        // 출력-->
-<!--        document.getElementById('result2').innerText-->
-<!--            = itemNoVal;-->
-
-<!--        alert(itemNoVal);-->
-
-
-<!--        let form = document.createElement('form');-->
-
-<!--        let itemNoList = document.createElement('input');-->
-<!--        itemNoList.setAttribute('type', 'hidden');-->
-<!--        itemNoList.setAttribute('name', 'itemNoList');-->
-<!--        itemNoList.setAttribute('value', itemNoVal.toString());-->
-<!--        form.appendChild(itemNoList);-->
-<!--        form.setAttribute('method', 'post');-->
-<!--        form.setAttribute('action', '/receive/admin/list/new');-->
-<!--        document.body.appendChild(form);-->
-<!--        form.submit();-->
-
-<!--        // $.ajax({-->
-<!--        //             url: "receive/admin/list/new",-->
-<!--        //             // dataType: "json",-->
-<!--        //             // contentType: "application/x-www-form-urlencoded; charset=UTF-8",-->
-<!--        //             type: "post",-->
-<!--        //             data: {-->
-<!--        //                 itemNo: itemNoVal-->
-<!--        //             },-->
-<!--        //             success: function (data) {-->
-<!--        //                 console.log("success", data);-->
-<!--        //             },-->
-<!--        //             error: function () {-->
-<!--        //                 alert("error");-->
-<!--        //             }-->
-<!--        //         });-->
-
-<!--        // location.href = "/receive/admin/list/new?itemNo=" + arr;-->
-
-
-<!--    }-->
-<!--</script>-->
-
-<!-- 선택 삭제 -->
+<!-- 삭제할 품목 체크하여 삭제 (여러 품목 삭제) -->
 <script>
     function deleteItem(){
         if($("input:checkbox[name='chk2']:checked").length === 0){
@@ -465,107 +240,32 @@
                 });
                 alert('선택한 항목이 삭제되었습니다.');
             }
-
         }
+        // 행 길이
         let rowLength = document.getElementById('receiveTable').tBodies[0].rows.length;
 
-        // 총입고수량, 총입고금액 계산
+        // 총 입고 수량
         let receiveItemAmount = document.getElementsByClassName('receiveAmount');
         let receiveTotalAmount = 0;
+        // 총 입고 금액
         let receiveItemMoney = document.getElementsByClassName('receiveItemMoney');
         let receiveTotalMoney = 0;
+
+        // 헹의 길이만큼 반복문을 돌며 총 입고 수량/금액 계산
         for(let i = 0; i < rowLength; i++){
-            receiveTotalAmount += Number(receiveItemAmount[i].value);
-            receiveTotalMoney += parseInt(receiveItemMoney[i].innerHTML.replace(/[^0-9]/gi, ''));
+            receiveTotalAmount += Number(receiveItemAmount[i].value); // 숫자 형태로 변환 ('11' -> 11)
+            receiveTotalMoney += parseInt(receiveItemMoney[i].innerHTML.replace(/[^0-9]/gi, '')); // 숫자 형태로 변환 (문자, ',' 제거) ('4,000원' -> 4000)
         }
+
+        // 숫자에 천 단위로 콤마 적용 (toLocaleString)
         document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString("ko-KR");
         document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString("ko-KR") + "원";
 
-        // 순서
+        // 테이블 '번호'에 순서 부여
         let tdNum = document.getElementsByClassName('tdNum');
         for(let i = 0; i < rowLength; i++){
             tdNum[i].innerHTML = i + 1;
         }
-
-    }
-</script>
-
-<!-- 입고 등록 메시지 띄우기 -->
-<!--<script>-->
-<!--    function insertReceive(){-->
-<!--        var answer = confirm('입고를 진행하시겠습니까?');-->
-<!--        if(answer){-->
-<!--            location.href='admin_receive.html';-->
-<!--        }-->
-<!--        if(answer){-->
-<!--            var answer2 = alert('입고가 완료되었습니다.'); // 선택 항목만 입고되도록, 입고등록 완료시 alert 띄우고 조회화면으로 이동-->
-<!--        }-->
-
-<!--    }-->
-<!--</script>-->
-
-<!-- 레이어 팝업 -->
-<script>
-    $(".detail-main").click(function() {
-        $(this).next(".detail-sub-tr").find(".detail-sub").slideToggle(300);
-        $(this).toggleClass('on').siblings().removeClass('on');
-        $(this).next(".detail-sub-tr").find(".detail-sub").siblings(".detail-sub").slideUp(300);
-    });
-
-    function openLayer(IdName, tpos, lpos){
-        var pop = document.getElementById(IdName);
-        pop.style.display = "block";
-        pop.style.top = tpos + "%";
-        pop.style.left = lpos + "%";
-    }
-    function closeLayer(IdName){
-        var pop = document.getElementById(IdName);
-        pop.style.display = "none";
-    }
-</script>
-
-<!-- 총 입고수량 & 총 입고금액 초기값 -->
-<script>
-    let receiveTotalAmount = document.getElementById('receiveTable').tBodies[0].rows.length;
-    document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString("ko-KR");
-
-    let receiveItemMoney = document.getElementsByClassName('receiveItemMoney');
-    let receiveTotalMoney = 0;
-    for(let i = 0; i < receiveTotalAmount; i++){
-        receiveTotalMoney += parseInt(receiveItemMoney[i].innerHTML.replace(/[^0-9]/gi, ''));
-    }
-    document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString("ko-KR") + "원";
-
-</script>
-
-<!-- 자동계산  -->
-<script>
-    function inputValueChange(check){
-
-        console.log(check);
-
-        // 입고수량
-        let inputValue = $(check.parentElement)[0].children[0].value;
-        console.log(inputValue);
-
-        // 입고금액
-        let itemPurchase = parseInt($(check.parentElement).siblings()[7].innerText.replace(/[^0-9]/gi, ''));
-        let receiveItemMoney = inputValue * itemPurchase;
-        $(check.parentElement).siblings()[8].innerText = receiveItemMoney.toLocaleString('ko-KR') + "원";
-
-        // 총 입고수량 & 총 입고금액
-        let inputValueTot = document.getElementsByClassName('receiveAmount');
-        let itemMoneyTot = document.getElementsByClassName('receiveItemMoney');
-        let receiveTotalAmount = 0;
-        let receiveTotalMoney = 0;
-        for(let i = 0; i < inputValueTot.length; i++){
-            receiveTotalAmount += Number(inputValueTot[i].value);
-            receiveTotalMoney += parseInt(itemMoneyTot[i].innerText.replace(/[^0-9]/gi, ''));
-        }
-        console.log(receiveTotalAmount);
-        console.log(receiveTotalMoney);
-        document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString('ko-KR');
-        document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString('ko-KR') + "원";
 
     }
 </script>
@@ -588,11 +288,12 @@
         // row 길이
         let rowLength = document.getElementById('receiveTable').tBodies[0].rows.length;
 
-        // 총입고수량, 총입고금액 계산
+        // 총 입고 수량, 총 입고 금액 계산
         let receiveItemAmount = document.getElementsByClassName('receiveAmount');
         let receiveTotalAmount = 0;
         let receiveItemMoney = document.getElementsByClassName('receiveItemMoney');
         let receiveTotalMoney = 0;
+
         for(let i = 0; i < rowLength; i++){
             receiveTotalAmount += Number(receiveItemAmount[i].value);
             receiveTotalMoney += parseInt(receiveItemMoney[i].innerHTML.replace(/[^0-9]/gi, ''));
@@ -600,7 +301,7 @@
         document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString("ko-KR");
         document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString("ko-KR") + "원";
 
-        // 순서
+        // 테이블 '번호'에 순서 부여
         let tdNum = document.getElementsByClassName('tdNum');
         for(let i = 0; i < rowLength; i++){
             tdNum[i].innerHTML = i + 1;
@@ -608,7 +309,83 @@
     }
 </script>
 
-<!-- 입고 -->
+<!-- 레이어 팝업 -->
+<script>
+    $(".detail-main").click(function() {
+        $(this).next(".detail-sub-tr").find(".detail-sub").slideToggle(300);
+        $(this).toggleClass('on').siblings().removeClass('on');
+        $(this).next(".detail-sub-tr").find(".detail-sub").siblings(".detail-sub").slideUp(300);
+    });
+
+    // 레이어 열기
+    function openLayer(IdName, tpos, lpos){
+        var pop = document.getElementById(IdName);
+        pop.style.display = "block";
+        pop.style.top = tpos + "%";
+        pop.style.left = lpos + "%";
+    }
+
+    // 레이어 닫기
+    function closeLayer(IdName){
+        var pop = document.getElementById(IdName);
+        pop.style.display = "none";
+    }
+</script>
+
+<!-- 총 입고수량 & 총 입고금액 초기값 -->
+<script>
+    // 총 입고 수량 계산 (품목 하나 당 초기 입고수량은 1개)
+    let receiveTotalAmount = document.getElementById('receiveTable').tBodies[0].rows.length;
+    document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString("ko-KR");
+
+    // 총 입고 금액 계산
+    let receiveItemMoney = document.getElementsByClassName('receiveItemMoney');
+    let receiveTotalMoney = 0;
+    for(let i = 0; i < receiveTotalAmount; i++){
+        receiveTotalMoney += parseInt(receiveItemMoney[i].innerHTML.replace(/[^0-9]/gi, '')); // 숫자 형태로 변환
+    }
+    document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString("ko-KR") + "원";
+</script>
+
+<!-- 자동계산 -->
+<script>
+    // 입고 수량 input 값이 변경될 때마다 실행되는 함수
+    function inputValueChange(check){
+
+        console.log(check);
+
+        // 입고 수량
+        let inputValue = $(check.parentElement)[0].children[0].value;
+        console.log(inputValue);
+
+        // 입고 금액
+        let itemPurchase = parseInt($(check.parentElement).siblings()[7].innerText.replace(/[^0-9]/gi, ''));
+        // 입고 금액 = 입고 수량 * 입고 단가
+        let receiveItemMoney = inputValue * itemPurchase;
+        $(check.parentElement).siblings()[8].innerText = receiveItemMoney.toLocaleString('ko-KR') + "원";
+
+        // 총 입고수량 & 총 입고금액
+        let inputValueTot = document.getElementsByClassName('receiveAmount');
+        let itemMoneyTot = document.getElementsByClassName('receiveItemMoney');
+        let receiveTotalAmount = 0;
+        let receiveTotalMoney = 0;
+
+        // 등록된 품목 갯수만큼 반복문을 돌면서 총 입고 수량/금액 계산
+        for(let i = 0; i < inputValueTot.length; i++){
+            receiveTotalAmount += Number(inputValueTot[i].value);
+            receiveTotalMoney += parseInt(itemMoneyTot[i].innerText.replace(/[^0-9]/gi, ''));
+        }
+
+        console.log(receiveTotalAmount);
+        console.log(receiveTotalMoney);
+
+        document.getElementById('receiveTotalAmount').innerText = receiveTotalAmount.toLocaleString('ko-KR');
+        document.getElementById('receiveTotalMoney').innerText = receiveTotalMoney.toLocaleString('ko-KR') + "원";
+
+    }
+</script>
+
+<!-- 입고 등록 -->
 <script>
     function insertReceive(){
         let rowLength = document.getElementById('receiveTable').tBodies[0].rows.length;
@@ -618,97 +395,45 @@
         if(rowLength == 0){
             alert('입고할 품목을 등록해주세요.');
         } else{
-            let answer = confirm('입고를 진행하시겠습니까?');
-            let receiveItem = [];
-            let receiveItemNo = '';
-            let receiveAmount = '';
-            for(let i = 0; i < rowLength; i++){
-                receiveItemNo = document.getElementsByClassName('receiveItemNo')[i].innerHTML;
-                receiveAmount = document.getElementsByClassName('receiveAmount')[i].value;
-                receiveItem[i] = receiveItemNo + ' ' + receiveAmount;
+            if(confirm('입고를 진행하시겠습니까?')){
+
+                // 입고 품목을 담을 배열 생성
+                let receiveItem = [];
+                let receiveItemNo = '';
+                let receiveAmount = '';
+
+                // 품목 번호와 입고 수량 하나씩 등록
+                for(let i = 0; i < rowLength; i++){
+                    receiveItemNo = document.getElementsByClassName('receiveItemNo')[i].innerHTML;
+                    receiveAmount = document.getElementsByClassName('receiveAmount')[i].value;
+                    receiveItem[i] = receiveItemNo + ' ' + receiveAmount;
+                }
+
+                console.log(receiveItem);
+                let form = document.createElement('form');
+
+                let registList = document.createElement('input');
+                registList.setAttribute('type', 'hidden');
+                registList.setAttribute('name', 'registList');
+                registList.setAttribute('value', receiveItem.toString());
+
+                let empName = document.createElement('input');
+                empName.setAttribute('type', 'hidden');
+                empName.setAttribute('name', 'empName');
+                empName.setAttribute('value', empNameHidden);
+
+                form.appendChild(registList);
+                form.appendChild(empName);
+                form.setAttribute('method', 'post');
+                form.setAttribute('action', '/receive/admin/regist');
+                document.body.appendChild(form);
+                form.submit();
             }
-            console.log(receiveItem);
-            // alert(receiveItem);
-            //
-            let form = document.createElement('form');
-
-            let registList = document.createElement('input');
-            registList.setAttribute('type', 'hidden');
-            registList.setAttribute('name', 'registList');
-            registList.setAttribute('value', receiveItem.toString());
-
-            let empName = document.createElement('input');
-            empName.setAttribute('type', 'hidden');
-            empName.setAttribute('name', 'empName');
-            empName.setAttribute('value', empNameHidden);
-
-            form.appendChild(registList);
-            form.appendChild(empName);
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', '/receive/admin/regist');
-            document.body.appendChild(form);
-            form.submit();
         }
     }
 </script>
 
-
-<!-- 개별 삭제 -->
-<!--<script>-->
-<!--    $('.saveBtn').on('click', function() {-->
-
-<!--        //현재 row의 정보 가져오기-->
-<!--        var thisRow = $(this).closest('tr');-->
-
-<!--        //주소 input 값 가져오기-->
-<!--        var addr = thisRow.find('td:eq(0)').find('input').val();-->
-<!--        //섦졍 input 값 가져오기-->
-<!--        var txt = thisRow.find('td:eq(1)').find('input').val();-->
-
-<!--        alert(addr + ", " + txt + "을(를) 클릭하였습니다.");-->
-
-<!--    })-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    function rowClicked() {-->
-
-<!--        var table =document.getElementById('receiveTable');-->
-<!--        var rowList = table.rows; // *1)rows collection-->
-
-<!--        for (i=1; i<rowList.length; i++) {//thead부분 제외.-->
-
-<!--            var row = rowList[i];-->
-<!--            var tdsNum = row.childElementCount;// 자식요소 갯수 구하기.-->
-
-<!--            row.onclick = function(){-->
-<!--                return function(){-->
-
-<!--                    var str = "";-->
-<!--                    for (var j = 0; j < tdsNum; j++){//row안에 있는 값 순차대로 가져오기.-->
-
-<!--                        var row_value = this.cells[j].innerHTML; //*2)cells collection-->
-<!--                        str += row_value+' ';//값을 하나의 text값으로 만듦-->
-
-<!--                    };//td for-->
-
-<!--                    document.querySelector('.test').innerText =str;//p태그 안에 값 넣어주기.-->
-
-<!--                };//return-->
-<!--            }(row);//onclick-->
-<!--        }//for-->
-
-<!--    }//function-->
-
-<!--    window.onload = rowClicked();-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    $('#receiveTable').on("click", "tr", function(){-->
-<!--       -->
-<!--        console.log($(this).find("td:eq(0)").te)-->
-<!--    });-->
-<!--</script>-->
+<!-- 체크박스 전체 선택 및 해제 -->
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -725,11 +450,7 @@
             if(total != checked) $("#cbx_chkAll1").prop("checked", false);
             else $("#cbx_chkAll1").prop("checked", true);
         });
-    });
-</script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
         $("#cbx_chkAll2").click(function() {
             if($("#cbx_chkAll2").is(":checked")) $("input[name=chk2]").prop("checked", true);
             else $("input[name=chk2]").prop("checked", false);

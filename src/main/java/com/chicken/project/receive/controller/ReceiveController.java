@@ -169,7 +169,6 @@ public class ReceiveController {
 
         System.out.println(registItemNo);
         String[] registList = registItemNo.split(",");
-//        List<HashMap<String, Object>> registItemList = new ArrayList<>();
         HashMap<String, Object> registHashMap = new HashMap<>();
         for(int i = 0; i < registList.length; i++){
 

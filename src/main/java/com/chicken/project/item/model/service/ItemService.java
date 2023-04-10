@@ -40,7 +40,6 @@ public interface ItemService {
 
     List<ItemInfoDTO> selectMainItem();
 
-
     @Transactional
     int updateItem(ItemInfoDTO item) throws ItemUpdateException;
 

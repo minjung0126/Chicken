@@ -181,14 +181,6 @@ ORDER BY 1 ASC
       ORDER BY 1
     </select>
 
-<!--    <select id="selectItemTotalCount" resultType="_int" parameterType="hashmap">-->
-<!--        SELECT-->
-<!--               COUNT(*)-->
-<!--          FROM ITEM_INFO I-->
-<!--          JOIN ITEM_CATEGORY IC ON(I.CATEGORY_NO = IC.CATEGORY_NO)-->
-<!--         WHERE I.ITEM_DELETE_YN = 'N'-->
-<!--    </select>-->
-
     <select id="selectRegistReceive" parameterType="hashMap" resultMap="itemInfoResultMap">
         SELECT
                IF.FILE_NAME

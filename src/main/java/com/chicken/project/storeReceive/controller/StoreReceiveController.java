@@ -134,7 +134,6 @@ public class StoreReceiveController {
 
         mv.addObject("receiveItem", receiveItem);
 
-
         mv.setViewName("receive/user/user_receive");
 
         return mv;
@@ -172,7 +171,6 @@ public class StoreReceiveController {
             map.put("storeAccount", storeAccount);
             recList.add(map);
         }
-
 
         int recTotalAmount = 0;
         int recTotalMoney = 0;

@@ -224,28 +224,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<!-- datepicker js -->
 <script>
     var jb = jQuery.noConflict();
     var form = document.getElementsByClassName('form-check');
 
     jb(document).ready(function () {
-        // 상품 등록
-        jb("#btnInsertItem").click(function () {
-            location.href = 'javascript:showInsertItem()';
-        });
 
+        // slideToggle
         jb(".detail-main").click(function () {
             jb(this).next(".detail-sub-tr").find(".detail-sub").slideToggle(300);
             jb(this).toggleClass('on').siblings().removeClass('on');
             jb(this).next(".detail-sub-tr").find(".detail-sub").siblings(".detail-sub").slideUp(300);
         });
 
+        // datePicker
         $(function () {
 
+            // start, end date 기본값 설정
             let start = moment($('#startDate').val());
             let end = moment();
 
+            // 검색 시 start, end date 값 변경 (url에서 가져와서)
             let urlDate = new URL(location.href).searchParams;
 
             if(urlDate.has('startDate') && urlDate.get('startDate') != ''){
@@ -309,7 +308,7 @@
 
 </script>
 
-<!-- 입고 -->
+<!-- 입고 등록 -->
 <script>
     function insertReceive(check){
 
@@ -324,6 +323,7 @@
         let count = 0;
         for(let i = 0; i < tr.length; i++){
 
+            // 하나의 품목 당 발주 수량과 출고 수량이 일치하면 count 한다.
             if($(click[0].children).find(".recAmount")[i].innerText == $(click[0].children).find(".ordAmount")[i].innerText){
                 count++;
             }
@@ -332,6 +332,7 @@
 
         for(let i = 0; i < tr.length; i++){
 
+            // count 숫자와 테이블 행의 길이가 일치하면 입고 진행
             if(count == tr.length){
 
                 receive = {
@@ -350,6 +351,7 @@
         console.log(receiveList);
 
         let answer = confirm('입고를 진행하시겠습니까?');
+        // 객체 배열 ([{}, {}]을 controller로 넘겨주기 위해 json 데이터를 string으로 변환
         if(answer){
             let form = document.createElement('form');
 

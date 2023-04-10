@@ -42,7 +42,6 @@ public class ItemController {
         log.info("[itemController] =========================================================");
         
         /* 페이징 처리 & 전체 품목 리스트 조회 */
-
         String currentPage = request.getParameter("currentPage");
         int pageNo = 1;
 
@@ -96,7 +95,6 @@ public class ItemController {
         return mv;
     }
 
-    /* 상품 상세 조회 */
     @GetMapping("/admin/itemDetail")
     @ResponseBody
     public ModelAndView getItemOne(ModelAndView mv, HttpServletRequest request, RedirectAttributes rttr) {
@@ -118,9 +116,75 @@ public class ItemController {
 
     }
 
+    @PostMapping("/admin/regist")
+    public String itemRegist(@ModelAttribute ItemInfoDTO item, @RequestParam(value="file", required = false) MultipartFile file, RedirectAttributes rttr) throws Exception{
+
+        System.out.println("테스트용 : " + item);
+        ItemFileDTO itemFile = new ItemFileDTO();
+
+        log.info("[itemController] ItemInfoDTO : " + item);
+        log.info("[itemController] file : " + file);
+
+        String root = ResourceUtils.getURL("upload").getPath();
+
+        String filePath = root + "/itemImage";
+
+        log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
+
+        File mkdir = new File(filePath);
+        if(!mkdir.exists()) {
+            mkdir.mkdirs();
+        }
+
+        String originFileName = "";
+        String ext = "";
+        String changeName = "";
+
+        if(file.getSize() > 0) {
+            originFileName = file.getOriginalFilename();
+            ext = originFileName.substring(originFileName.lastIndexOf("."));
+            changeName = UUID.randomUUID().toString().replace("-",  "");
+
+            itemFile.setOriginName(originFileName);
+            itemFile.setFileName(changeName + ext);
+
+            // 품목 등록
+            int result = itemService.insertItem(item);
+
+            // 품목 파일 등록
+            if(result > 0) {
+                itemService.insertItemHistory();
+                itemService.insertFileRegist(itemFile);
+            }
+
+            try {
+                file.transferTo(new File(filePath + mkdir.separator + changeName + ext));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                new File(filePath + mkdir.separator + changeName + ext).delete();
+
+            }
+        } else {
+            itemService.insertItem(item);
+        }
+
+        // 상품 등록 후 제일 마지막 페이지로 이동
+        int totalCount = itemService.selectTotalItemCount();
+        int page = 0;
+        if(totalCount % 10 != 0){
+            page = totalCount / 10 + 1;
+        } else {
+            page = totalCount / 10;
+        }
+
+        rttr.addFlashAttribute("message", "상품 등록 성공");
+
+        return "redirect:/item/admin/list?currentPage=" + page;
+    }
+
     @PostMapping("/admin/update")
     public String itemUpdate(@ModelAttribute ItemInfoDTO item, @RequestParam(value="itemNo", required = false) int itemNo, @RequestParam(value="file", required = false) MultipartFile file, RedirectAttributes rttr) throws Exception{
-
 
         log.info("[itemController] ItemInfoDTO : " + item);
         log.info("아이템넘버 : " + itemNo);
@@ -129,7 +193,6 @@ public class ItemController {
         String root = ResourceUtils.getURL("upload").getPath();
 
         String filePath = root + "/itemImage";
-
 
         log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
 
@@ -193,73 +256,6 @@ public class ItemController {
         return "redirect:/item/admin/list";
     }
 
-
-    @PostMapping("/admin/regist")
-    public String itemRegist(@ModelAttribute ItemInfoDTO item, @RequestParam(value="file", required = false) MultipartFile file, RedirectAttributes rttr) throws Exception{
-
-        System.out.println("테스트용 : " + item);
-        ItemFileDTO itemFile = new ItemFileDTO();
-
-        log.info("[itemController] ItemInfoDTO : " + item);
-        log.info("[itemController] file : " + file);
-
-        String root = ResourceUtils.getURL("upload").getPath();
-
-        String filePath = root + "/itemImage";
-
-        log.info("루트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + filePath);
-
-        File mkdir = new File(filePath);
-        if(!mkdir.exists()) {
-            mkdir.mkdirs();
-        }
-
-        String originFileName = "";
-        String ext = "";
-        String changeName = "";
-
-        if(file.getSize() > 0) {
-            originFileName = file.getOriginalFilename();
-            ext = originFileName.substring(originFileName.lastIndexOf("."));
-            changeName = UUID.randomUUID().toString().replace("-",  "");
-
-            itemFile.setOriginName(originFileName);
-            itemFile.setFileName(changeName + ext);
-
-            // 품목 등록
-            int result = itemService.insertItem(item);
-
-
-            // 품목 파일 등록
-            if(result > 0) {
-                itemService.insertItemHistory();
-                itemService.insertFileRegist(itemFile);
-            }
-
-            try {
-                file.transferTo(new File(filePath + mkdir.separator + changeName + ext));
-            } catch (IOException e) {
-
-                e.printStackTrace();
-                new File(filePath + mkdir.separator + changeName + ext).delete();
-            }
-        } else {
-            itemService.insertItem(item);
-        }
-
-        int totalCount = itemService.selectTotalItemCount();
-        int page = 0;
-        if(totalCount % 10 != 0){
-            page = totalCount / 10 + 1;
-        } else {
-            page = totalCount / 10;
-        }
-
-        rttr.addFlashAttribute("message", "상품 등록 성공");
-
-        return "redirect:/item/admin/list?currentPage=" + page;
-    }
-
     @PostMapping("/admin/delete")
     public String itemDelete(@RequestParam(value="itemNoList", required = false) String itemNoList, RedirectAttributes rttr) throws Exception{
 
@@ -294,6 +290,7 @@ public class ItemController {
 
         }
 
+        // 상품 삭제 후 제일 마지막 페이지로 이동
         int totalCount = itemService.selectTotalItemCount();
         int page = 0;
         if(totalCount % 10 != 0){
@@ -306,8 +303,5 @@ public class ItemController {
 
         return "redirect:/item/admin/list?currentPage=" + page;
     }
-
-
-
 
 }

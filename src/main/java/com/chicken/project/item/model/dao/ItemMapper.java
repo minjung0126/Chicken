@@ -13,7 +13,6 @@ import java.util.Map;
 public interface ItemMapper {
 
     int selectTotalCount(Map<String, String> searchMap);
-
     List<ItemInfoDTO> selectAllItem(SelectCriteria selectCriteria);
     List<ItemCategoryDTO> selectPreCategory();
     List<ItemCategoryDTO> selectCategory();
@@ -24,18 +23,11 @@ public interface ItemMapper {
     int insertItemHistory();
     ItemInfoDTO selectOneItem(String itemNoInput);
     List<ItemInfoDTO> selectMainItem();
-
     int updateItem(ItemInfoDTO item);
-
     int deleteItemFile2(int item);
-
     int insertItemFile(ItemFileDTO itemFile);
-
     int selectItemFileCheck(String itemNo);
-
     int selectTotalItemCount();
-
     int updateItemFile(ItemFileDTO itemFile);
-
     ItemFileDTO selectOneItemFile(int itemNo);
 }
